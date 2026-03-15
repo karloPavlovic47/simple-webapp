@@ -1,0 +1,12 @@
+{
+  "name": "simple-webapp",
+  "version": "0.1.0",
+  "description": "Minimal Node + Express static webapp",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

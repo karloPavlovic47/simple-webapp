@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Online check-in i rezervacija - Ispuna M4y plava</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-dot"></span>
+        Ispuna - M4y plava
+      </a>
+      <nav class="nav">
+        <a href="/">Naslovnica</a>
+        <a href="/apartments.html">Smjestaj</a>
+        <a href="/rentacar.html">Rent a car</a>
+        <a href="/activities.html">Aktivnosti</a>
+        <a href="/faq.html">FAQ i info guide</a>
+        <a href="/directions.html">Kako do nas</a>
+        <a href="/about.html">O nama</a>
+      </nav>
+    </header>
+
+    <section class="page-intro card-plain">
+      <h1>Gost / posjetitelj</h1>
+      <p>Online check-in, prijava u eVisitor i automatski mail potvrde rezervacije.</p>
+    </section>
+
+    <section class="split-layout">
+      <article class="card-plain">
+        <h2>Brza rezervacija smjestaja</h2>
+        <form id="reserveForm" class="stack-form">
+          <label>Ime i prezime<input name="name" required></label>
+          <label>Email<input name="email" type="email" required></label>
+          <label>Check-in<input name="checkin" type="date" required></label>
+          <label>Check-out<input name="checkout" type="date" required></label>
+          <label>Broj gostiju<input name="guests" type="number" min="1" value="1"></label>
+          <label>Tip apartmana
+            <select name="apartment">
+              <option value="studio">Studio</option>
+              <option value="one-bedroom">One-bedroom</option>
+              <option value="family">Family</option>
+            </select>
+          </label>
+          <label class="check-line">
+            <input type="checkbox" name="evisitor" value="1" checked>
+            Automatska prijava u eVisitor
+          </label>
+          <button type="submit" class="btn">Posalji rezervaciju</button>
+        </form>
+        <pre id="reserveOutput"></pre>
+      </article>
+
+      <article class="card-plain">
+        <h2>Online check-in gosta</h2>
+        <form id="checkinForm" class="stack-form">
+          <label>ID rezervacije<input name="bookingId" placeholder="APT-123..." required></label>
+          <label>Ime gosta<input name="guestName" required></label>
+          <label>Email gosta<input name="email" type="email" required></label>
+          <label>Broj putovnice / dokumenta<input name="passportId" required></label>
+          <label>Datum dolaska<input name="arrivalDate" type="date" required></label>
+          <label class="check-line">
+            <input type="checkbox" name="evisitor" value="1" checked>
+            Potvrdi eVisitor prijavu
+          </label>
+          <button type="submit" class="btn">Zavrsi online check-in</button>
+        </form>
+        <pre id="checkinOutput"></pre>
+      </article>
+    </section>
+
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
