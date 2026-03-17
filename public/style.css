@@ -57,6 +57,10 @@ body::after {
 	z-index: 1;
 }
 
+.page-home .site-shell {
+	padding-top: 0;
+}
+
 body.page-home {
 	background-color: #eef3fa;
 }
@@ -73,20 +77,32 @@ body.page-home::after {
 }
 
 .page-home .topbar {
-	background: rgba(255, 255, 255, 0.85);
-	border-color: rgba(39, 92, 170, 0.16);
+	background: linear-gradient(135deg, #08111f 0%, #0d1c33 56%, #0b1528 100%);
+	border-color: rgba(30, 87, 174, 0.24);
+	border-radius: 0;
 	box-shadow: none;
-	padding: 0.5rem 0.9rem;
+	padding: 0.6rem 1.1rem;
+	margin: 0;
+	width: 100%;
 }
 
 .page-home .brand {
 	font-size: 1.1rem;
-	color: #1f62b0;
+	color: #fff;
 	gap: 0.5rem;
 }
 
 .page-home .brand-dot {
 	display: none;
+}
+
+.page-home .nav a {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.page-home .nav a:hover {
+	background: rgba(255, 255, 255, 0.15);
+	color: #fff;
 }
 
 .brand-logo {
@@ -95,11 +111,9 @@ body.page-home::after {
 }
 
 .home-stage {
-	margin-top: 1.1rem;
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 200px;
-	gap: 0.9rem 1rem;
-	align-items: start;
+	margin-top: 0;
+	display: block;
+	position: relative;
 }
 
 .home-content-col {
@@ -112,7 +126,7 @@ body.page-home::after {
 	grid-template-columns: 0.95fr 1fr;
 	position: relative;
 	padding: 1.8rem 1.4rem 3.6rem;
-	border-radius: 16px 16px 0 0;
+	border-radius: 0;
 	box-shadow: none;
 	min-height: 345px;
 	gap: 1rem;
@@ -124,7 +138,7 @@ body.page-home::after {
 	content: "";
 	position: absolute;
 	inset: 0;
-	border-radius: inherit;
+	border-radius: 0;
 	background: linear-gradient(135deg, #08111f 0%, #0d1c33 56%, #0b1528 100%);
 	clip-path: polygon(0 0, 100% 0, 100% 82%, 89% 100%, 36% 100%, 0 76%);
 	border: 1px solid rgba(30, 87, 174, 0.24);
@@ -187,7 +201,7 @@ body.page-home::after {
 
 .home-media-window {
 	min-height: 240px;
-	border-radius: 6px;
+	border-radius: 0;
 	border: 1px solid rgba(205, 224, 255, 0.28);
 	overflow: hidden;
 	display: grid;
@@ -208,7 +222,7 @@ body.page-home::after {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	border-radius: 6px;
+	border-radius: 0;
 }
 
 .gif-img {
@@ -225,37 +239,37 @@ body.page-home::after {
 }
 
 .home-float-links {
-	position: sticky;
-	top: 1.2rem;
-	align-self: start;
-	padding: 0.9rem;
-	border-left: 3px solid rgba(31, 98, 176, 0.38);
-	background: rgba(255, 255, 255, 0.7);
+	position: fixed;
+	right: 0.8rem;
+	top: 6.5rem;
+	transform: none;
+	z-index: 9999;
+	padding: 0.45rem;
+	border-left: 2px solid rgba(31, 98, 176, 0.55);
+	background: rgba(255, 255, 255, 0.92);
 	backdrop-filter: blur(4px);
-	border-radius: 0 14px 14px 0;
+	border-radius: 0;
 	box-shadow: none;
 	display: grid;
-	gap: 0.45rem;
+	gap: 0.35rem;
 }
 
-.home-float-links p {
-	margin: 0;
-	font-size: 0.72rem;
-	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	color: #4069a8;
-	font-weight: 700;
-}
-
-.home-float-links a {
+.home-float-links .icon-link {
 	text-decoration: none;
-	font-size: 1.45rem;
-	line-height: 1.05;
+	width: 2rem;
+	height: 2rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
 	color: #0f2d5e;
-	font-weight: 700;
+	border: 1px solid rgba(15, 45, 94, 0.25);
+	transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.home-float-links a:hover {
+
+.home-float-links .icon-link:hover {
+	background: #e9f1ff;
 	color: #2a7ddd;
 }
 
@@ -335,7 +349,7 @@ body.page-home::after {
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.8rem 1rem;
-	border-radius: var(--radius);
+	border-radius: 0;
 	background: rgba(255, 250, 243, 0.82);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(17, 19, 25, 0.09);
@@ -354,7 +368,7 @@ body.page-home::after {
 .brand-dot {
 	width: 0.72rem;
 	height: 0.72rem;
-	border-radius: 999px;
+	border-radius: 0;
 	background: var(--teal);
 	box-shadow: none;
 }
@@ -372,7 +386,7 @@ body.page-home::after {
 	font-size: 0.9rem;
 	font-weight: 600;
 	padding: 0.5rem 0.75rem;
-	border-radius: 999px;
+	border-radius: 0;
 }
 
 .nav a:hover {
@@ -391,7 +405,7 @@ body.page-home::after {
 .card-glass,
 .card-plain,
 .card-dark {
-	border-radius: var(--radius);
+	border-radius: 0;
 	box-shadow: var(--shadow);
 	border: 1px solid rgba(17, 19, 25, 0.09);
 }
@@ -452,7 +466,7 @@ h3 {
 	cursor: pointer;
 	text-decoration: none;
 	display: inline-block;
-	border-radius: 999px;
+	border-radius: 0;
 	font-family: inherit;
 	font-weight: 700;
 	background: var(--teal);
@@ -476,7 +490,7 @@ h3 {
 
 .fake-screen {
 	min-height: 270px;
-	border-radius: calc(var(--radius) - 4px);
+	border-radius: 0;
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	background:
 		linear-gradient(135deg, rgba(222, 107, 72, 0.22), rgba(17, 19, 25, 0.15)),
@@ -638,7 +652,7 @@ h3 {
 input,
 select {
 	width: 100%;
-	border-radius: 12px;
+	border-radius: 0;
 	border: 1px solid rgba(17, 19, 25, 0.2);
 	background: #fff;
 	color: var(--ink);
@@ -666,7 +680,7 @@ pre {
 	margin: 0.9rem 0 0;
 	background: #f1e8da;
 	border: 1px solid rgba(17, 19, 25, 0.1);
-	border-radius: 12px;
+	border-radius: 0;
 	padding: 0.85rem;
 	overflow: auto;
 	color: #2e333d;
@@ -688,7 +702,7 @@ pre {
 
 .listing-image {
 	min-height: 210px;
-	border-radius: 12px;
+	border-radius: 0;
 	background:
 		linear-gradient(135deg, rgba(31, 111, 139, 0.82), rgba(21, 79, 99, 0.85)),
 		repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08) 10px, transparent 10px, transparent 20px);
@@ -726,7 +740,7 @@ pre {
 	font-size: 0.9rem;
 	color: #1f402f;
 	background: rgba(118, 201, 175, 0.17);
-	border-radius: 9px;
+	border-radius: 0;
 	padding: 0.38rem 0.5rem;
 	display: inline-block;
 }
@@ -742,7 +756,7 @@ pre {
 	display: inline-grid;
 	gap: 0.2rem;
 	padding: 0.45rem 0.55rem;
-	border-radius: 10px;
+	border-radius: 0;
 	background: rgba(31, 111, 139, 0.1);
 }
 
@@ -806,7 +820,7 @@ pre {
 .cal-cell {
 	text-align: center;
 	font-size: 0.83rem;
-	border-radius: 8px;
+	border-radius: 0;
 	border: 1px solid rgba(17, 19, 25, 0.11);
 	background: #fff;
 	padding: 0.48rem 0.2rem;
@@ -871,8 +885,19 @@ select:focus {
 	}
 
 	.home-float-links {
-		position: static;
-		max-width: 100%;
+		position: fixed;
+		right: 0.8rem;
+		top: auto;
+		bottom: 1rem;
+		transform: none;
+		z-index: 9999;
+		padding: 0.35rem;
+		border-left: 2px solid rgba(31, 98, 176, 0.55);
+		background: rgba(255, 255, 255, 0.94);
+		backdrop-filter: blur(4px);
+		display: grid;
+		max-width: auto;
+		margin: 0;
 	}
 
 	.home-showcase {
@@ -883,7 +908,7 @@ select:focus {
 
 	.home-showcase::before {
 		clip-path: none;
-		border-radius: 16px;
+		border-radius: 0;
 	}
 
 	.home-media-window {
@@ -936,4 +961,5 @@ select:focus {
 		grid-template-columns: 1fr;
 	}
 }
+
 
