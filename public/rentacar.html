@@ -27,42 +27,44 @@
       </nav>
     </header>
 
-    <section class="page-intro card-plain">
-      <h1>Rent a car sucelje</h1>
-      <p>Zaseban kalendar dostupnosti i rezervacija vozila po tipu i lokaciji.</p>
+    <section class="page-intro card-plain apartments-hero fade-up">
+      <h1>Rent a car pretraga</h1>
+      <p>Odaberi lokaciju i termine te rezerviraj vozilo direktno iz rezultata.</p>
     </section>
 
-    <section class="split-layout">
-      <article class="card-plain" id="carCalendarWrap">
-        <h2>Kalendar vozila</h2>
-        <div id="carCalendar">Ucitavanje kalendara...</div>
-      </article>
+    <section class="booking-search card-plain fade-up">
+      <form id="carSearchForm" class="booking-search-grid">
+        <label>
+          Lokacija preuzimanja
+          <select name="location" required>
+            <option value="Split">Split</option>
+            <option value="Dubrovnik">Dubrovnik</option>
+            <option value="Zagreb" selected>Zagreb</option>
+          </select>
+        </label>
+        <label>
+          Datum preuzimanja
+          <input name="pickup" type="date" required />
+        </label>
+        <label>
+          Datum povrata
+          <input name="dropoff" type="date" required />
+        </label>
+        <label>
+          Vozaca
+          <input name="drivers" type="number" min="1" max="2" value="1" required />
+        </label>
+        <button type="submit" class="btn booking-search-btn">Pretrazi</button>
+      </form>
+    </section>
 
-      <article class="card-plain">
-        <h2>Rezervacija vozila</h2>
-        <form id="rentForm" class="stack-form">
-          <label>Ime i prezime<input name="name" required></label>
-          <label>Email<input name="email" type="email" required></label>
-          <label>Datum preuzimanja<input name="pickup" type="date" required></label>
-          <label>Datum povrata<input name="dropoff" type="date" required></label>
-          <label>Tip vozila
-            <select name="carType">
-              <option value="economy">Economy</option>
-              <option value="compact">Compact</option>
-              <option value="suv">SUV</option>
-            </select>
-          </label>
-          <label>Lokacija preuzimanja
-            <select name="location">
-              <option value="Split">Split</option>
-              <option value="Dubrovnik">Dubrovnik</option>
-              <option value="Zagreb" selected>Zagreb</option>
-            </select>
-          </label>
-          <button type="submit" class="btn">Potvrdi rent a car</button>
-        </form>
-        <pre id="rentOutput"></pre>
-      </article>
+    <section class="results-meta fade-up">
+      <h2 id="carResultsTitle">Dostupna vozila</h2>
+      <p id="carResultsSummary" class="muted">Ucitavanje rezultata...</p>
+    </section>
+
+    <section id="carListings" class="panel-stack booking-results">
+      Ucitavanje vozila...
     </section>
 
   </div>

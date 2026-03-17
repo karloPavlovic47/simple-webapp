@@ -13,7 +13,16 @@
   <div class="site-shell">
     <header class="topbar">
       <a class="brand" href="/">
-        <span class="brand-dot"></span>
+        <svg class="brand-logo" viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
+          <!-- Sun -->
+          <circle cx="32" cy="20" r="14" fill="#f0d000"/>
+          <!-- Green mountains -->
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Blue base fill -->
+          <polygon points="4,52 60,52 60,64 4,64" fill="#1a6dbf"/>
+          <!-- Green mountains above base -->
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
         Ispuna - M4y plava
       </a>
       <nav class="nav">
@@ -27,36 +36,67 @@
       </nav>
     </header>
 
-    <main class="hero-grid">
-      <section class="hero-text card-glass">
-        <p class="eyebrow">JUST LEAVE IT TO BILL AND JOHN</p>
-        <h1>Renting your property has never been easier</h1>
-        <p>
-          Dva sucelja, jedna jasna logika: odvojeni kalendari za smjestaj i rent a car,
-          uz gostujuce procese za online check-in, eVisitor prijavu i automatsku potvrdu rezervacije.
-        </p>
-        <div class="hero-actions">
-          <a class="btn" href="/apartments.html">Smjestaj sucelje</a>
-          <a class="btn btn-outline" href="/rentacar.html">Rent a car sucelje</a>
-        </div>
-      </section>
+    <main class="home-stage fade-up">
+      <div class="home-content-col">
+        <section class="home-showcase" aria-label="Naslovni prikaz">
+          <div class="home-showcase-text">
+            <p class="eyebrow">JUST LEAVE IT TO BILL AND JOHN</p>
+            <h1>Renting your property has never been easier</h1>
+            <p>
+              Dva sucelja, jedna jasna logika: odvojeni kalendari za smjestaj i rent a car,
+              uz gostujuce procese za online check-in, eVisitor prijavu i automatsku potvrdu rezervacije.
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="/apartments.html">Smjestaj sucelje</a>
+              <a class="btn btn-outline" href="/rentacar.html">Rent a car sucelje</a>
+            </div>
+          </div>
 
-      <section class="hero-visual card-dark">
-        <div class="fake-screen">
-          <div class="screen-line"></div>
-          <div class="screen-media">GIF s brodom na moru (hero media)</div>
-        </div>
-      </section>
+          <div class="home-showcase-media">
+            <div class="home-media-window">
+              <div class="gif-player" data-src="/assets/images/gif.gif" title="Da se pokrece na hover misem, ne autoplay">
+                <canvas class="gif-canvas"></canvas>
+                <img class="gif-img" src="/assets/images/gif.gif" alt="Brod na moru" aria-hidden="true">
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <aside class="quick-contact card-glass">
-        <h2>Floating sidebar</h2>
+        <div class="home-editorial">
+          <div class="home-ed-block">
+            <h2>Dva sucelja</h2>
+            <ul>
+              <li><a href="/apartments.html">smjestaj</a></li>
+              <li><a href="/rentacar.html">rent a car</a></li>
+              <li>oba s odvojenim kalendarima</li>
+            </ul>
+          </div>
+          <div class="home-ed-block">
+            <h2>Ostali linkovi</h2>
+            <ul>
+              <li>samo tekst s fotografijama</li>
+            </ul>
+          </div>
+          <div class="home-ed-block">
+            <h2>Gost / posjetitelj</h2>
+            <ul>
+              <li><a href="/reserve.html">online check in</a></li>
+              <li>prijava u eVisitor</li>
+              <li>automatski mail potvrda rezervacije</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <aside class="home-float-links" aria-label="Kontakt linkovi">
+        <p>Floating sidebar</p>
         <a href="mailto:info@ispuna.example">Mail</a>
         <a href="https://wa.me/3850000000" target="_blank" rel="noopener">Whatsapp</a>
         <a href="https://maps.google.com" target="_blank" rel="noopener">Lokacija - gMaps</a>
       </aside>
     </main>
 
-    <section class="notes card-plain">
+    <section class="notes card-plain home-notes">
       <h2>Operativni model</h2>
       <ul>
         <li>Dva sucelja: smjestaj i rent a car</li>

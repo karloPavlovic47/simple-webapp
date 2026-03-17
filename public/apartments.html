@@ -27,12 +27,39 @@
       </nav>
     </header>
 
-    <section class="page-intro card-plain">
-      <h1>Smjestaj sucelje</h1>
-      <p>Svaki objekt ima svoj kalendar zauzetosti i direktnu formu za rezervaciju.</p>
+    <section class="page-intro card-plain apartments-hero fade-up">
+      <h1>Pronadi svoj idealan apartman</h1>
+      <p>Pretrazi smjestaj po gradu, terminu i broju gostiju.</p>
     </section>
 
-    <section id="apartmentsList" class="panel-stack">
+    <section class="booking-search card-plain fade-up">
+      <form id="apartmentsSearchForm" class="booking-search-grid">
+        <label>
+          Lokacija
+          <input name="destination" placeholder="npr. Split" />
+        </label>
+        <label>
+          Check-in
+          <input name="checkin" type="date" required />
+        </label>
+        <label>
+          Check-out
+          <input name="checkout" type="date" required />
+        </label>
+        <label>
+          Gosti
+          <input name="guests" type="number" min="1" value="2" required />
+        </label>
+        <button type="submit" class="btn booking-search-btn">Pretrazi</button>
+      </form>
+    </section>
+
+    <section class="results-meta fade-up">
+      <h2 id="resultsTitle">Dostupni apartmani</h2>
+      <p id="resultsSummary" class="muted">Ucitavanje rezultata...</p>
+    </section>
+
+    <section id="apartmentsList" class="panel-stack booking-results">
       Ucitavanje apartmana...
     </section>
   </div>
