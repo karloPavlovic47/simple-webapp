@@ -8,7 +8,7 @@ This file contains personal instructions and shorthand commands for the agent.
 
 ## Project Information
 
-This workspace contains a simple web application built with Node.js and Express. It serves static HTML pages from the `public/` directory, including pages for apartments, rent-a-car, reservations/check-in, activities, FAQ, directions, and about. The app includes APIs for apartment bookings, rent-a-car bookings, and guest online check-in (`/api/guest/checkin`) and uses `data/bookings.json` for persistent storage. It's designed as a minimal setup for a rental service website.
+This workspace contains a simple web application built with Node.js and Express. It serves static HTML pages from the `public/` directory, including pages for apartments, rent-a-car, reservations/check-in, activities, FAQ, directions, and about. The app includes APIs for apartment bookings, rent-a-car bookings, and guest online check-in (`/api/guest/checkin`) and uses `data/bookings.json` for persistent storage. It's designed as a minimal setup for a rental service website. The brand name is **Mljet4You**.
 
 Current UI/flow notes:
 

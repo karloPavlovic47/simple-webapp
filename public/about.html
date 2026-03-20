@@ -3,46 +3,83 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>O nama - Ispuna M4y plava</title>
+  <title>O nama - Mljet4You</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body>
+<body data-title-key="title.about">
   <div class="site-shell">
     <header class="topbar">
-      <a class="brand" href="/"><span class="brand-dot"></span>Ispuna - M4y plava</a>
+      <a class="brand" href="/">
+        <svg class="brand-logo" viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
+          <!-- Sun -->
+          <circle cx="32" cy="20" r="14" fill="#f0d000"/>
+          <!-- Green mountains -->
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Blue base fill -->
+          <polygon points="4,52 60,52 60,64 4,64" fill="#1a6dbf"/>
+          <!-- Green mountains above base -->
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        Mljet4You
+      </a>
       <nav class="nav">
-        <a href="/">Naslovnica</a>
-        <a href="/apartments.html">Smjestaj</a>
-        <a href="/rentacar.html">Rent a car</a>
-        <a href="/activities.html">Aktivnosti</a>
-        <a href="/faq.html">FAQ i info guide</a>
-        <a href="/directions.html">Kako do nas</a>
-        <a href="/about.html">O nama</a>
+        <a href="/apartments.html" data-i18n="nav.apartments">Smjestaj</a>
+        <a href="/rentacar.html" data-i18n="nav.rentacar">Rent a car</a>
+        <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
+        <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
+        <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
+        <a href="/about.html" data-i18n="nav.about">O nama</a>
+        <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
+          <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
+          <button type="button" class="lang-flag" data-lang="en" aria-label="English" data-i18n-aria-label="common.languageEnglish"><img class="flag-icon" src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="" aria-hidden="true"></button>
+        </div>
       </nav>
     </header>
 
     <section class="page-intro card-plain">
-      <h1>O nama</h1>
-      <p>Mali tim koji vodi smjestaj i rent a car uslugu uz jasne procese za goste.</p>
+      <h1 data-i18n="about.title">O nama</h1>
+      <p data-i18n="about.text">Mali tim koji vodi smjestaj i rent a car uslugu uz jasne procese za goste.</p>
     </section>
 
     <section class="photo-text-grid">
       <article class="card-plain">
-        <h2>Nas pristup</h2>
-        <p>Prakticna komunikacija, transparentne cijene i brza podrska tijekom boravka.</p>
+        <h2 data-i18n="about.card1.title">Nas pristup</h2>
+        <p data-i18n="about.card1.text">Prakticna komunikacija, transparentne cijene i brza podrska tijekom boravka.</p>
       </article>
       <article class="card-plain">
-        <h2>Lokalno iskustvo</h2>
-        <p>Preporuke lokacija, aktivnosti i ruta koje odgovaraju profilu gosta.</p>
+        <h2 data-i18n="about.card2.title">Lokalno iskustvo</h2>
+        <p data-i18n="about.card2.text">Preporuke lokacija, aktivnosti i ruta koje odgovaraju profilu gosta.</p>
       </article>
       <article class="card-plain">
-        <h2>Podrska 7/7</h2>
-        <p>Operativna podrska za check-in, transfer i rent a car koordinaciju.</p>
+        <h2 data-i18n="about.card3.title">Podrska 7/7</h2>
+        <p data-i18n="about.card3.text">Operativna podrska za check-in, transfer i rent a car koordinaciju.</p>
       </article>
     </section>
+
+    <aside class="home-float-links" aria-label="Kontakt linkovi" data-i18n-aria-label="contact.linksAria">
+      <a class="icon-link icon-mail" href="mailto:info@ispuna.example" aria-label="Posalji email" data-i18n-aria-label="contact.emailAria">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </a>
+      <a class="icon-link icon-whatsapp" href="https://wa.me/3850000000" target="_blank" rel="noopener" aria-label="Otvori Whatsapp" data-i18n-aria-label="contact.whatsappAria">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M9.4 8.6c.3-.6.6-.6.9-.6h.4c.2 0 .5 0 .7.5.2.5.7 1.8.8 1.9.1.2.1.4 0 .6l-.3.5c-.1.1-.2.3 0 .5.2.3.8 1.3 2 2 .4.2.7.2.9 0l.5-.6c.2-.2.4-.2.6-.1l1.8.8c.2.1.4.2.4.5l-.2.9c-.1.3-.5.6-.8.7-.5.1-1.1.2-1.7 0-.9-.3-2.2-.9-3.6-2.3-1.6-1.5-2.3-3-2.5-3.9-.2-.7 0-1.4.1-1.6z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="icon-link icon-map" href="https://maps.google.com" target="_blank" rel="noopener" aria-label="Otvori lokaciju na mapi" data-i18n-aria-label="contact.mapAria">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M12 22s7-6.8 7-12a7 7 0 1 0-14 0c0 5.2 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="10" r="2.7" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </a>
+    </aside>
   </div>
+  <script src="/app.js"></script>
 </body>
 </html>

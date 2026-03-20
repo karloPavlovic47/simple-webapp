@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Naslovnica - Ispuna M4y plava</title>
+  <title>Mljet4You</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="page-home">
+<body class="page-home" data-title-key="title.home">
   <div class="site-shell">
     <header class="topbar">
       <a class="brand" href="/">
@@ -23,40 +23,43 @@
           <!-- Green mountains above base -->
           <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
         </svg>
-        Ispuna - M4y plava
+        Mljet4You
       </a>
       <nav class="nav">
-        <a href="/">Naslovnica</a>
-        <a href="/apartments.html">Smjestaj</a>
-        <a href="/rentacar.html">Rent a car</a>
-        <a href="/activities.html">Aktivnosti</a>
-        <a href="/faq.html">FAQ i info guide</a>
-        <a href="/directions.html">Kako do nas</a>
-        <a href="/about.html">O nama</a>
+        <a href="/apartments.html" data-i18n="nav.apartments">Smjestaj</a>
+        <a href="/rentacar.html" data-i18n="nav.rentacar">Rent a car</a>
+        <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
+        <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
+        <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
+        <a href="/about.html" data-i18n="nav.about">O nama</a>
+        <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
+          <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
+          <button type="button" class="lang-flag" data-lang="en" aria-label="English" data-i18n-aria-label="common.languageEnglish"><img class="flag-icon" src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="" aria-hidden="true"></button>
+        </div>
       </nav>
     </header>
 
     <main class="home-stage fade-up">
       <div class="home-content-col">
-        <section class="home-showcase" aria-label="Naslovni prikaz">
+        <section class="home-showcase" aria-label="Naslovni prikaz" data-i18n-aria-label="home.showcaseAria">
           <div class="home-showcase-text">
-            <p class="eyebrow">JUST LEAVE IT TO BILL AND JOHN</p>
-            <h1>Renting your property has never been easier</h1>
-            <p>
+            <p class="eyebrow" data-i18n="home.eyebrow">JUST LEAVE IT TO BILL AND JOHN</p>
+            <h1 data-i18n="home.heroTitle">Renting your property has never been easier</h1>
+            <p data-i18n="home.heroText">
               Dva sucelja, jedna jasna logika: odvojeni kalendari za smjestaj i rent a car,
               uz gostujuce procese za online check-in, eVisitor prijavu i automatsku potvrdu rezervacije.
             </p>
             <div class="hero-actions">
-              <a class="btn" href="/apartments.html">Smjestaj sucelje</a>
-              <a class="btn btn-outline" href="/rentacar.html">Rent a car sucelje</a>
+              <a class="btn" href="/apartments.html" data-i18n="home.apartmentsBtn">Smjestaj sucelje</a>
+              <a class="btn btn-outline" href="/rentacar.html" data-i18n="home.rentacarBtn">Rent a car sucelje</a>
             </div>
           </div>
 
           <div class="home-showcase-media">
             <div class="home-media-window">
-              <div class="gif-player" data-src="/assets/images/gif.gif" title="Da se pokrece na hover misem, ne autoplay">
+              <div class="gif-player" data-src="/assets/images/gif.gif" title="Da se pokrece na hover misem, ne autoplay" data-i18n-title="home.gifTitle">
                 <canvas class="gif-canvas"></canvas>
-                <img class="gif-img" src="/assets/images/gif.gif" alt="Brod na moru" aria-hidden="true">
+                <img class="gif-img" src="/assets/images/gif.gif" alt="Brod na moru" data-i18n-alt="home.gifAlt" aria-hidden="true">
               </div>
             </div>
           </div>
@@ -64,45 +67,45 @@
 
         <div class="home-editorial">
           <div class="home-ed-block">
-            <h2>Dva sucelja</h2>
+            <h2 data-i18n="home.editorial.interfacesTitle">Dva sucelja</h2>
             <ul>
-              <li><a href="/apartments.html">smjestaj</a></li>
-              <li><a href="/rentacar.html">rent a car</a></li>
-              <li>oba s odvojenim kalendarima</li>
+              <li><a href="/apartments.html" data-i18n="home.editorial.interfacesAccommodation">smjestaj</a></li>
+              <li><a href="/rentacar.html" data-i18n="home.editorial.interfacesRentacar">rent a car</a></li>
+              <li data-i18n="home.editorial.interfacesCalendars">oba s odvojenim kalendarima</li>
             </ul>
           </div>
           <div class="home-ed-block">
-            <h2>Ostali linkovi</h2>
+            <h2 data-i18n="home.editorial.otherLinksTitle">Ostali linkovi</h2>
             <ul>
-              <li>samo tekst s fotografijama</li>
+              <li data-i18n="home.editorial.otherLinksText">samo tekst s fotografijama</li>
             </ul>
           </div>
           <div class="home-ed-block">
-            <h2>Gost / posjetitelj</h2>
+            <h2 data-i18n="home.editorial.guestTitle">Gost / posjetitelj</h2>
             <ul>
-              <li><a href="/reserve.html">online check in</a></li>
-              <li>prijava u eVisitor</li>
-              <li>automatski mail potvrda rezervacije</li>
+              <li><a href="/reserve.html" data-i18n="home.editorial.guestCheckin">online check in</a></li>
+              <li data-i18n="home.editorial.guestEvisitor">prijava u eVisitor</li>
+              <li data-i18n="home.editorial.guestMail">automatski mail potvrda rezervacije</li>
             </ul>
           </div>
         </div>
       </div>
     </main>
 
-    <aside class="home-float-links" aria-label="Kontakt linkovi">
-      <a class="icon-link icon-mail" href="mailto:info@ispuna.example" aria-label="Posalji email">
+    <aside class="home-float-links" aria-label="Kontakt linkovi" data-i18n-aria-label="contact.linksAria">
+      <a class="icon-link icon-mail" href="mailto:info@ispuna.example" aria-label="Posalji email" data-i18n-aria-label="contact.emailAria">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
           <path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="2"/>
           <path d="M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/>
         </svg>
       </a>
-      <a class="icon-link icon-whatsapp" href="https://wa.me/3850000000" target="_blank" rel="noopener" aria-label="Otvori Whatsapp">
+      <a class="icon-link icon-whatsapp" href="https://wa.me/3850000000" target="_blank" rel="noopener" aria-label="Otvori Whatsapp" data-i18n-aria-label="contact.whatsappAria">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
           <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2"/>
           <path d="M9.4 8.6c.3-.6.6-.6.9-.6h.4c.2 0 .5 0 .7.5.2.5.7 1.8.8 1.9.1.2.1.4 0 .6l-.3.5c-.1.1-.2.3 0 .5.2.3.8 1.3 2 2 .4.2.7.2.9 0l.5-.6c.2-.2.4-.2.6-.1l1.8.8c.2.1.4.2.4.5l-.2.9c-.1.3-.5.6-.8.7-.5.1-1.1.2-1.7 0-.9-.3-2.2-.9-3.6-2.3-1.6-1.5-2.3-3-2.5-3.9-.2-.7 0-1.4.1-1.6z" fill="currentColor"/>
         </svg>
       </a>
-      <a class="icon-link icon-map" href="https://maps.google.com" target="_blank" rel="noopener" aria-label="Otvori lokaciju na mapi">
+      <a class="icon-link icon-map" href="https://maps.google.com" target="_blank" rel="noopener" aria-label="Otvori lokaciju na mapi" data-i18n-aria-label="contact.mapAria">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
           <path d="M12 22s7-6.8 7-12a7 7 0 1 0-14 0c0 5.2 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/>
           <circle cx="12" cy="10" r="2.7" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -111,14 +114,14 @@
     </aside>
 
     <section class="notes card-plain home-notes">
-      <h2>Operativni model</h2>
+      <h2 data-i18n="home.notes.title">Operativni model</h2>
       <ul>
-        <li>Dva sucelja: smjestaj i rent a car</li>
-        <li>Oba modula imaju odvojene kalendare</li>
-        <li>Ostali linkovi su tekstualne info stranice s fotografijama</li>
-        <li>Gost/posjetitelj: online check-in, prijava u eVisitor, automatski mail potvrde</li>
+        <li data-i18n="home.notes.item1">Dva sucelja: smjestaj i rent a car</li>
+        <li data-i18n="home.notes.item2">Oba modula imaju odvojene kalendare</li>
+        <li data-i18n="home.notes.item3">Ostali linkovi su tekstualne info stranice s fotografijama</li>
+        <li data-i18n="home.notes.item4">Gost/posjetitelj: online check-in, prijava u eVisitor, automatski mail potvrde</li>
       </ul>
-      <a class="btn" href="/reserve.html">Online check-in i rezervacija</a>
+      <a class="btn" href="/reserve.html" data-i18n="home.notes.button">Online check-in i rezervacija</a>
     </section>
   </div>
   <script src="/app.js"></script>

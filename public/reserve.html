@@ -3,45 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Online check-in i rezervacija - Ispuna M4y plava</title>
+  <title>Online check-in i rezervacija - Mljet4You</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body>
+<body data-title-key="title.reserve">
   <div class="site-shell">
     <header class="topbar">
       <a class="brand" href="/">
-        <span class="brand-dot"></span>
-        Ispuna - M4y plava
+        <svg class="brand-logo" viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
+          <!-- Sun -->
+          <circle cx="32" cy="20" r="14" fill="#f0d000"/>
+          <!-- Green mountains -->
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Blue base fill -->
+          <polygon points="4,52 60,52 60,64 4,64" fill="#1a6dbf"/>
+          <!-- Green mountains above base -->
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        Mljet4You
       </a>
       <nav class="nav">
-        <a href="/">Naslovnica</a>
-        <a href="/apartments.html">Smjestaj</a>
-        <a href="/rentacar.html">Rent a car</a>
-        <a href="/activities.html">Aktivnosti</a>
-        <a href="/faq.html">FAQ i info guide</a>
-        <a href="/directions.html">Kako do nas</a>
-        <a href="/about.html">O nama</a>
+        <a href="/apartments.html" data-i18n="nav.apartments">Smjestaj</a>
+        <a href="/rentacar.html" data-i18n="nav.rentacar">Rent a car</a>
+        <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
+        <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
+        <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
+        <a href="/about.html" data-i18n="nav.about">O nama</a>
+        <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
+          <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
+          <button type="button" class="lang-flag" data-lang="en" aria-label="English" data-i18n-aria-label="common.languageEnglish"><img class="flag-icon" src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="" aria-hidden="true"></button>
+        </div>
       </nav>
     </header>
 
     <section class="page-intro card-plain">
-      <h1>Gost / posjetitelj</h1>
-      <p>Online check-in, prijava u eVisitor i automatski mail potvrde rezervacije.</p>
+      <h1 data-i18n="reserve.introTitle">Gost / posjetitelj</h1>
+      <p data-i18n="reserve.introText">Online check-in, prijava u eVisitor i automatski mail potvrde rezervacije.</p>
     </section>
 
     <section class="split-layout">
       <article class="card-plain">
-        <h2>Brza rezervacija smjestaja</h2>
+        <h2 data-i18n="reserve.quickBookingTitle">Brza rezervacija smjestaja</h2>
         <form id="reserveForm" class="stack-form">
-          <label>Ime i prezime<input name="name" required></label>
-          <label>Email<input name="email" type="email" required></label>
-          <label>Check-in<input name="checkin" type="date" required></label>
-          <label>Check-out<input name="checkout" type="date" required></label>
-          <label>Broj gostiju<input name="guests" type="number" min="1" value="1"></label>
-          <label>Tip apartmana
+          <label><span data-i18n="reserve.form.fullName">Ime i prezime</span><input name="name" required></label>
+          <label><span data-i18n="reserve.form.email">Email</span><input name="email" type="email" required></label>
+          <label><span data-i18n="reserve.form.checkin">Check-in</span><input name="checkin" type="date" required></label>
+          <label><span data-i18n="reserve.form.checkout">Check-out</span><input name="checkout" type="date" required></label>
+          <label><span data-i18n="reserve.form.guests">Broj gostiju</span><input name="guests" type="number" min="1" value="1"></label>
+          <label><span data-i18n="reserve.form.apartmentType">Tip apartmana</span>
             <select name="apartment">
               <option value="studio">Studio</option>
               <option value="one-bedroom">One-bedroom</option>
@@ -50,30 +62,51 @@
           </label>
           <label class="check-line">
             <input type="checkbox" name="evisitor" value="1" checked>
-            Automatska prijava u eVisitor
+            <span data-i18n="reserve.form.autoEvisitor">Automatska prijava u eVisitor</span>
           </label>
-          <button type="submit" class="btn">Posalji rezervaciju</button>
+          <button type="submit" class="btn" data-i18n="reserve.sendReservation">Posalji rezervaciju</button>
         </form>
         <pre id="reserveOutput"></pre>
       </article>
 
       <article class="card-plain">
-        <h2>Online check-in gosta</h2>
+        <h2 data-i18n="reserve.checkinTitle">Online check-in gosta</h2>
         <form id="checkinForm" class="stack-form">
-          <label>ID rezervacije<input name="bookingId" placeholder="APT-123..." required></label>
-          <label>Ime gosta<input name="guestName" required></label>
-          <label>Email gosta<input name="email" type="email" required></label>
-          <label>Broj putovnice / dokumenta<input name="passportId" required></label>
-          <label>Datum dolaska<input name="arrivalDate" type="date" required></label>
+          <label><span data-i18n="reserve.checkinForm.bookingId">ID rezervacije</span><input name="bookingId" placeholder="APT-123..." required></label>
+          <label><span data-i18n="reserve.checkinForm.guestName">Ime gosta</span><input name="guestName" required></label>
+          <label><span data-i18n="reserve.checkinForm.guestEmail">Email gosta</span><input name="email" type="email" required></label>
+          <label><span data-i18n="reserve.checkinForm.passport">Broj putovnice / dokumenta</span><input name="passportId" required></label>
+          <label><span data-i18n="reserve.checkinForm.arrivalDate">Datum dolaska</span><input name="arrivalDate" type="date" required></label>
           <label class="check-line">
             <input type="checkbox" name="evisitor" value="1" checked>
-            Potvrdi eVisitor prijavu
+            <span data-i18n="reserve.checkinForm.confirmEvisitor">Potvrdi eVisitor prijavu</span>
           </label>
-          <button type="submit" class="btn">Zavrsi online check-in</button>
+          <button type="submit" class="btn" data-i18n="reserve.finishCheckin">Zavrsi online check-in</button>
         </form>
         <pre id="checkinOutput"></pre>
       </article>
     </section>
+
+    <aside class="home-float-links" aria-label="Kontakt linkovi" data-i18n-aria-label="contact.linksAria">
+      <a class="icon-link icon-mail" href="mailto:info@ispuna.example" aria-label="Posalji email" data-i18n-aria-label="contact.emailAria">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </a>
+      <a class="icon-link icon-whatsapp" href="https://wa.me/3850000000" target="_blank" rel="noopener" aria-label="Otvori Whatsapp" data-i18n-aria-label="contact.whatsappAria">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M9.4 8.6c.3-.6.6-.6.9-.6h.4c.2 0 .5 0 .7.5.2.5.7 1.8.8 1.9.1.2.1.4 0 .6l-.3.5c-.1.1-.2.3 0 .5.2.3.8 1.3 2 2 .4.2.7.2.9 0l.5-.6c.2-.2.4-.2.6-.1l1.8.8c.2.1.4.2.4.5l-.2.9c-.1.3-.5.6-.8.7-.5.1-1.1.2-1.7 0-.9-.3-2.2-.9-3.6-2.3-1.6-1.5-2.3-3-2.5-3.9-.2-.7 0-1.4.1-1.6z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="icon-link icon-map" href="https://maps.google.com" target="_blank" rel="noopener" aria-label="Otvori lokaciju na mapi" data-i18n-aria-label="contact.mapAria">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M12 22s7-6.8 7-12a7 7 0 1 0-14 0c0 5.2 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="10" r="2.7" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </a>
+    </aside>
 
   </div>
   <script src="/app.js"></script>
