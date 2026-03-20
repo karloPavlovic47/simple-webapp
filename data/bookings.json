@@ -1,5 +1,32 @@
 {
-  "apartments": {},
+  "apartments": {
+    "apt-1": [
+      {
+        "id": "BKG-1773979148863",
+        "name": "Karlo Pavlović",
+        "email": "karlo@gmail.com",
+        "checkin": "2026-03-21",
+        "checkout": "2026-03-24",
+        "guests": "2",
+        "evisitor": false,
+        "emailConfirmation": true,
+        "createdAt": "2026-03-20T03:59:08.863Z"
+      }
+    ],
+    "apt-5": [
+      {
+        "id": "BKG-1773979165262",
+        "name": "Karlo Pavlović",
+        "email": "karl7@gmail.com",
+        "checkin": "2026-03-21",
+        "checkout": "2026-03-24",
+        "guests": "2",
+        "evisitor": false,
+        "emailConfirmation": true,
+        "createdAt": "2026-03-20T03:59:25.262Z"
+      }
+    ]
+  },
   "cars": [],
   "guestCheckins": []
 }

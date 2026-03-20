@@ -49,6 +49,7 @@ const APARTMENTS = [
   {
     id: 'apt-1',
     name: 'Adriatic View Studio',
+    imageUrl: 'https://picsum.photos/seed/apt1/800/560',
     city: 'Split',
     type: 'studio',
     pricePerNight: 78,
@@ -62,6 +63,7 @@ const APARTMENTS = [
   {
     id: 'apt-2',
     name: 'Old Town Comfort Flat',
+    imageUrl: 'https://picsum.photos/seed/apt2/800/560',
     city: 'Dubrovnik',
     type: 'one-bedroom',
     pricePerNight: 112,
@@ -75,6 +77,7 @@ const APARTMENTS = [
   {
     id: 'apt-3',
     name: 'Istria Family Residence',
+    imageUrl: 'https://picsum.photos/seed/apt3/800/560',
     city: 'Pula',
     type: 'family',
     pricePerNight: 139,
@@ -88,6 +91,7 @@ const APARTMENTS = [
   {
     id: 'apt-4',
     name: 'Zagreb Downtown Loft',
+    imageUrl: 'https://picsum.photos/seed/apt4/800/560',
     city: 'Zagreb',
     type: 'one-bedroom',
     pricePerNight: 96,
@@ -101,6 +105,7 @@ const APARTMENTS = [
   {
     id: 'apt-5',
     name: 'Makarska Beach Suite',
+    imageUrl: 'https://picsum.photos/seed/apt5/800/560',
     city: 'Makarska',
     type: 'studio',
     pricePerNight: 88,
@@ -114,6 +119,7 @@ const APARTMENTS = [
   {
     id: 'apt-6',
     name: 'Zadar Harbor Apartment',
+    imageUrl: 'https://picsum.photos/seed/apt6/800/560',
     city: 'Zadar',
     type: 'one-bedroom',
     pricePerNight: 104,
@@ -127,6 +133,7 @@ const APARTMENTS = [
   {
     id: 'apt-7',
     name: 'Rovinj Garden Residence',
+    imageUrl: 'https://picsum.photos/seed/apt7/800/560',
     city: 'Rovinj',
     type: 'family',
     pricePerNight: 148,
@@ -152,6 +159,89 @@ app.get('/api/apartments/:id/bookings', (req, res) => {
   const id = req.params.id;
   const storage = readStorage();
   res.json({ bookings: storage.apartments[id] || [] });
+});
+
+function bookingDatesOverlap(booking, start, end) {
+  const bStart = new Date(booking.checkin);
+  const bEnd = new Date(booking.checkout);
+  return start < bEnd && end > bStart;
+}
+
+function apartmentIsAvailable(storage, apartmentId, start, end) {
+  const bookings = storage.apartments[apartmentId] || [];
+  return !bookings.some((booking) => bookingDatesOverlap(booking, start, end));
+}
+
+function normalizeApartmentSelection(value) {
+  const selected = String(value || '').trim();
+  if (!selected) return { mode: 'any' };
+
+  const directApartment = APARTMENTS.find((apt) => apt.id === selected);
+  if (directApartment) return { mode: 'id', apartmentId: directApartment.id };
+
+  return { mode: 'type', apartmentType: selected.toLowerCase() };
+}
+
+function pickApartmentForReservation(storage, selection, start, end) {
+  let candidates = APARTMENTS;
+
+  if (selection.mode === 'id') {
+    candidates = APARTMENTS.filter((apt) => apt.id === selection.apartmentId);
+  } else if (selection.mode === 'type') {
+    candidates = APARTMENTS.filter((apt) => String(apt.type || '').toLowerCase() === selection.apartmentType);
+  }
+
+  return candidates
+    .filter((apt) => apartmentIsAvailable(storage, apt.id, start, end))
+    .sort((a, b) => a.pricePerNight - b.pricePerNight)[0] || null;
+}
+
+app.get('/api/apartments/occupancy-preview', (req, res) => {
+  const { checkin, checkout, apartment, city } = req.query || {};
+
+  const start = new Date(String(checkin || ''));
+  const end = new Date(String(checkout || ''));
+  if (isNaN(start.getTime()) || isNaN(end.getTime()) || end <= start) {
+    return res.status(400).json({ success: false, message: 'Invalid dates' });
+  }
+
+  const selection = normalizeApartmentSelection(apartment);
+  const cityFilter = String(city || '').trim().toLowerCase();
+  const storage = readStorage();
+
+  let candidates = APARTMENTS;
+  if (selection.mode === 'id') {
+    candidates = candidates.filter((apt) => apt.id === selection.apartmentId);
+  } else if (selection.mode === 'type') {
+    candidates = candidates.filter((apt) => String(apt.type || '').toLowerCase() === selection.apartmentType);
+  }
+  if (cityFilter) {
+    candidates = candidates.filter((apt) => String(apt.city || '').toLowerCase().includes(cityFilter));
+  }
+
+  const preview = candidates.map((apt) => {
+    const bookings = storage.apartments[apt.id] || [];
+    const overlapping = bookings.filter((booking) => bookingDatesOverlap(booking, start, end)).length;
+    return {
+      id: apt.id,
+      name: apt.name,
+      city: apt.city,
+      type: apt.type,
+      pricePerNight: apt.pricePerNight,
+      available: overlapping === 0,
+      overlappingBookings: overlapping,
+    };
+  });
+
+  const availableCount = preview.filter((item) => item.available).length;
+  res.json({
+    success: true,
+    from: String(checkin),
+    to: String(checkout),
+    total: preview.length,
+    available: availableCount,
+    preview,
+  });
 });
 
 // Create a booking (register occupancy)
@@ -202,17 +292,40 @@ app.post('/api/reserve-apartment', (req, res) => {
   if (!name || !email || !checkin || !checkout) {
     return res.status(400).json({ success: false, message: 'Missing required fields' });
   }
+
+  const start = new Date(checkin);
+  const end = new Date(checkout);
+  if (isNaN(start.getTime()) || isNaN(end.getTime()) || end <= start) {
+    return res.status(400).json({ success: false, message: 'Invalid dates' });
+  }
+
+  const storage = readStorage();
+  const selection = normalizeApartmentSelection(apartment);
+  const picked = pickApartmentForReservation(storage, selection, start, end);
+  if (!picked) {
+    return res.status(409).json({ success: false, message: 'No available apartment for selected criteria' });
+  }
+
+  storage.apartments[picked.id] = storage.apartments[picked.id] || [];
+
   const confirmation = {
     id: 'APT-' + Date.now(),
+    apartmentId: picked.id,
+    apartmentName: picked.name,
+    apartmentType: picked.type,
     name,
     email,
     checkin,
     checkout,
-    guests: guests || 1,
-    apartment: apartment || 'standard',
+    guests: Number(guests) || 1,
     evisitorRegistered: Boolean(evisitor),
     confirmationEmailSent: true,
+    createdAt: new Date().toISOString(),
   };
+
+  storage.apartments[picked.id].push(confirmation);
+  writeStorage(storage);
+
   res.json({ success: true, confirmation });
 });
 

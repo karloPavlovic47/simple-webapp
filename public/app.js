@@ -69,7 +69,18 @@ const I18N = {
     'reserve.form.checkout': 'Check-out',
     'reserve.form.guests': 'Broj gostiju',
     'reserve.form.apartmentType': 'Tip apartmana',
+    'reserve.form.apartmentTypeStudio': 'Studio',
+    'reserve.form.apartmentTypeOneBedroom': 'One-bedroom',
+    'reserve.form.apartmentTypeFamily': 'Family',
     'reserve.form.autoEvisitor': 'Automatska prijava u eVisitor',
+    'reserve.previewTitle': 'Pregled zauzetosti',
+    'reserve.previewHint': 'Odaberite datume za pregled dostupnosti.',
+    'reserve.previewLoading': 'Provjera zauzetosti...',
+    'reserve.previewInvalidDates': 'Unesite ispravne datume za prikaz pregleda.',
+    'reserve.previewSummary': '{available} od {total} apartmana dostupno.',
+    'reserve.previewTop': 'Prvi dostupni: {name} ({city}) - {price}/noc',
+    'reserve.previewNone': 'Nema dostupnih apartmana za odabrane datume.',
+    'reserve.previewError': 'Greska pri dohvatu pregleda: {message}',
     'reserve.checkinForm.bookingId': 'ID rezervacije',
     'reserve.checkinForm.guestName': 'Ime gosta',
     'reserve.checkinForm.guestEmail': 'Email gosta',
@@ -241,7 +252,18 @@ const I18N = {
     'reserve.form.checkout': 'Check-out',
     'reserve.form.guests': 'Number of guests',
     'reserve.form.apartmentType': 'Apartment type',
+    'reserve.form.apartmentTypeStudio': 'Studio',
+    'reserve.form.apartmentTypeOneBedroom': 'One-bedroom',
+    'reserve.form.apartmentTypeFamily': 'Family',
     'reserve.form.autoEvisitor': 'Automatic eVisitor registration',
+    'reserve.previewTitle': 'Occupancy preview',
+    'reserve.previewHint': 'Choose dates to preview availability.',
+    'reserve.previewLoading': 'Checking occupancy...',
+    'reserve.previewInvalidDates': 'Enter valid dates to see preview.',
+    'reserve.previewSummary': '{available} of {total} apartments available.',
+    'reserve.previewTop': 'First available: {name} ({city}) - {price}/night',
+    'reserve.previewNone': 'No apartments are available for selected dates.',
+    'reserve.previewError': 'Preview error: {message}',
     'reserve.checkinForm.bookingId': 'Booking ID',
     'reserve.checkinForm.guestName': 'Guest name',
     'reserve.checkinForm.guestEmail': 'Guest email',
@@ -544,6 +566,66 @@ async function postJson(url, body) {
 
 const reserveForm = document.getElementById('reserveForm');
 if (reserveForm) {
+  const reservePreviewSummary = document.getElementById('reservePreviewSummary');
+
+  async function refreshReservePreview() {
+    if (!reservePreviewSummary) return;
+
+    const checkin = reserveForm.elements.checkin?.value;
+    const checkout = reserveForm.elements.checkout?.value;
+    const apartment = reserveForm.elements.apartment?.value;
+
+    if (!checkin || !checkout) {
+      reservePreviewSummary.textContent = t('reserve.previewHint');
+      return;
+    }
+
+    const start = new Date(checkin);
+    const end = new Date(checkout);
+    if (isNaN(start.getTime()) || isNaN(end.getTime()) || end <= start) {
+      reservePreviewSummary.textContent = t('reserve.previewInvalidDates');
+      return;
+    }
+
+    reservePreviewSummary.textContent = t('reserve.previewLoading');
+
+    try {
+      const params = new URLSearchParams({ checkin, checkout, apartment: apartment || '' });
+      const response = await fetch(`/api/apartments/occupancy-preview?${params.toString()}`);
+      const payload = await response.json();
+      if (!response.ok || !payload.success) {
+        throw new Error(payload.message || t('common.requestFailed'));
+      }
+
+      const previewList = Array.isArray(payload.preview) ? payload.preview : [];
+      const firstAvailable = previewList.find((item) => item.available);
+
+      if (!firstAvailable) {
+        reservePreviewSummary.textContent = t('reserve.previewNone');
+        return;
+      }
+
+      const summary = t('reserve.previewSummary', {
+        available: payload.available,
+        total: payload.total,
+      });
+      const topLine = t('reserve.previewTop', {
+        name: firstAvailable.name,
+        city: firstAvailable.city,
+        price: formatMoney(firstAvailable.pricePerNight),
+      });
+      reservePreviewSummary.textContent = `${summary} ${topLine}`;
+    } catch (error) {
+      reservePreviewSummary.textContent = t('reserve.previewError', { message: error.message });
+    }
+  }
+
+  ['checkin', 'checkout', 'apartment'].forEach((field) => {
+    const input = reserveForm.elements[field];
+    if (!input) return;
+    input.addEventListener('change', refreshReservePreview);
+  });
+
   reserveForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const out = document.getElementById('reserveOutput');
@@ -556,6 +638,8 @@ if (reserveForm) {
       out.textContent = `${t('common.errorPrefix')}: ${error.message}`;
     }
   });
+
+  refreshReservePreview();
 }
 
 const checkinForm = document.getElementById('checkinForm');
@@ -584,6 +668,7 @@ if (carListingsContainer) {
     {
       id: 'car-1',
       name: 'City Compact',
+      imageUrl: 'https://picsum.photos/seed/car1/800/560',
       carType: 'economy',
       seats: 4,
       transmission: 'Manual',
@@ -598,6 +683,7 @@ if (carListingsContainer) {
     {
       id: 'car-2',
       name: 'Coastal SUV',
+      imageUrl: 'https://picsum.photos/seed/car2/800/560',
       carType: 'suv',
       seats: 5,
       transmission: 'Automatic',
@@ -612,6 +698,7 @@ if (carListingsContainer) {
     {
       id: 'car-3',
       name: 'Premium Sedan',
+      imageUrl: 'https://picsum.photos/seed/car3/800/560',
       carType: 'compact',
       seats: 5,
       transmission: 'Automatic',
@@ -723,6 +810,7 @@ if (carListingsContainer) {
     card.className = 'listing-card card-plain fade-up';
     card.innerHTML = `
       <div class="listing-image car-image" aria-hidden="true">
+        <img class="listing-photo" src="${vehicle.imageUrl || ''}" alt="" loading="lazy" onerror="this.style.display='none'">
         <span>${vehicle.imageLabel}</span>
       </div>
       <div class="listing-main">
@@ -913,6 +1001,7 @@ if (apartmentsContainer) {
 
     card.innerHTML = `
       <div class="listing-image" aria-hidden="true">
+        <img class="listing-photo" src="${apt.imageUrl || ''}" alt="" loading="lazy" onerror="this.style.display='none'">
         <span>${apt.imageLabel || 'Smjestaj'}</span>
       </div>
       <div class="listing-main">

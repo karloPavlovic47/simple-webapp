@@ -55,9 +55,9 @@
           <label><span data-i18n="reserve.form.guests">Broj gostiju</span><input name="guests" type="number" min="1" value="1"></label>
           <label><span data-i18n="reserve.form.apartmentType">Tip apartmana</span>
             <select name="apartment">
-              <option value="studio">Studio</option>
-              <option value="one-bedroom">One-bedroom</option>
-              <option value="family">Family</option>
+              <option value="studio" data-i18n="reserve.form.apartmentTypeStudio">Studio</option>
+              <option value="one-bedroom" data-i18n="reserve.form.apartmentTypeOneBedroom">One-bedroom</option>
+              <option value="family" data-i18n="reserve.form.apartmentTypeFamily">Family</option>
             </select>
           </label>
           <label class="check-line">
@@ -66,6 +66,10 @@
           </label>
           <button type="submit" class="btn" data-i18n="reserve.sendReservation">Posalji rezervaciju</button>
         </form>
+        <div id="reservePreview" class="card-plain" style="margin-top:0.8rem;">
+          <strong data-i18n="reserve.previewTitle">Pregled zauzetosti</strong>
+          <p id="reservePreviewSummary" class="muted" data-i18n="reserve.previewHint">Odaberite datume za pregled dostupnosti.</p>
+        </div>
         <pre id="reserveOutput"></pre>
       </article>
 
