@@ -97,6 +97,21 @@ router.get('/apartments/occupancy-preview', (req, res) => {
   });
 });
 
+router.get('/apartments/:id', (req, res) => {
+  const id = req.params.id;
+  const apartment = APARTMENTS.find((apt) => apt.id === id);
+  if (!apartment) {
+    return res.status(404).json({ success: false, message: 'Apartment not found' });
+  }
+
+  const storage = readStorage();
+  return res.json({
+    success: true,
+    apartment,
+    bookings: storage.apartments[id] || [],
+  });
+});
+
 router.post('/apartments/:id/book', (req, res) => {
   const id = req.params.id;
   const { name, email, checkin, checkout, guests, evisitor } = req.body || {};

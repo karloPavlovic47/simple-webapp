@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prijedlog suradnje – Web stranica s integriranim rezervacijskim sustavom</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      color: #1a1a1a;
+      background: #f4f4f0;
+      padding: 40px 20px;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 60px 70px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 3px solid #1a3a5c;
+      padding-bottom: 20px;
+      margin-bottom: 32px;
+    }
+    .header-left h1 {
+      font-size: 22px;
+      color: #1a3a5c;
+      letter-spacing: 0.5px;
+    }
+    .header-left p {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.8;
+    }
+    .header-right .doc-label {
+      display: inline-block;
+      background: #1a3a5c;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 11px;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* META BOX */
+    .meta-box {
+      background: #f8f9fb;
+      border-left: 4px solid #1a3a5c;
+      padding: 14px 18px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 13px;
+    }
+    .meta-box .meta-row { display: flex; gap: 6px; }
+    .meta-box .meta-label { color: #777; min-width: 90px; }
+    .meta-box .meta-value { font-weight: bold; color: #1a1a1a; }
+
+    /* SECTIONS */
+    h2 {
+      font-size: 15px;
+      color: #1a3a5c;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 28px 0 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #dde3ea;
+    }
+    h2:first-of-type { margin-top: 0; }
+
+    p { line-height: 1.75; margin-bottom: 10px; color: #333; }
+    ul { padding-left: 18px; margin-bottom: 10px; }
+    ul li { line-height: 1.75; margin-bottom: 4px; color: #333; }
+
+    /* HIGHLIGHT BOX */
+    .highlight {
+      background: #eef4fb;
+      border: 1px solid #c3d8ee;
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin: 12px 0;
+    }
+    .highlight p { margin: 0; color: #1a3a5c; font-style: italic; }
+
+    /* STATUS TAG */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .tag-done { background: #d4edda; color: #1a5c2a; }
+    .tag-wip  { background: #fff3cd; color: #7a5a00; }
+    .tag-plan { background: #e2e3e5; color: #444; }
+
+    /* PHASE TABLE */
+    .phase-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 10px;
+      font-size: 13px;
+    }
+    .phase-table th {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: normal;
+      letter-spacing: 0.3px;
+    }
+    .phase-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    .phase-table tr:nth-child(even) td { background: #f8f9fb; }
+    .phase-table td:last-child { color: #555; font-style: italic; }
+
+    /* PRICE BOX */
+    .price-box {
+      border: 2px solid #1a3a5c;
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin: 12px 0;
+    }
+    .price-box .price-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 6px;
+      margin-bottom: 0;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px dashed #dde;
+      font-size: 13px;
+    }
+    .price-row:last-of-type { border-bottom: none; }
+    .price-row .plabel { color: #444; }
+    .price-row .pvalue { font-weight: bold; color: #1a3a5c; }
+    .price-row.total-row .plabel,
+    .price-row.total-row .pvalue {
+      font-size: 15px;
+      color: #1a3a5c;
+    }
+
+    /* QUESTIONS */
+    .question-list li {
+      margin-bottom: 6px;
+      padding-left: 4px;
+    }
+    .question-list li::marker { content: "→ "; color: #1a3a5c; }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid #dde;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #888;
+    }
+    .signature-block { font-size: 13px; color: #333; }
+    .signature-block .sig-name { font-weight: bold; color: #1a3a5c; font-size: 15px; margin-top: 28px; }
+    .signature-block .sig-line {
+      border-top: 1px solid #999;
+      width: 200px;
+      margin-top: 40px;
+      padding-top: 5px;
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; padding: 30px 50px; }
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 30px 24px; }
+      .header { flex-direction: column; gap: 12px; }
+      .header-right { text-align: left; }
+      .meta-box { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Prijedlog suradnje</h1>
+      <p>Web stranica s integriranim rezervacijskim sustavom</p>
+    </div>
+    <div class="header-right">
+      <span class="doc-label">PRIJEDLOG</span><br />
+      Datum: <strong>21. ožujka 2026.</strong><br />
+      Vrijedi do: <strong>21. travnja 2026.</strong><br />
+      Verzija: 1.1
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="meta-box">
+    <div class="meta-row">
+      <span class="meta-label">Priprema:</span>
+      <span class="meta-value"><!-- VAŠE IME --></span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Za:</span>
+      <span class="meta-value"><!-- IME KLIJENTA / TVRTKE --></span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Kontakt:</span>
+      <span class="meta-value"><!-- VAŠ EMAIL / TEL --></span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Predmet:</span>
+      <span class="meta-value">Izrada web prezentacije s myrent integracijom</span>
+    </div>
+  </div>
+
+  <!-- 1. UVOD -->
+  <h2>1. O projektu</h2>
+  <p>
+    Ovaj prijedlog nastaje kao odgovor na Vašu potrebu za modernom web stranicom koja
+    posjetiteljima omogućuje pregled smještaja i vozila, online rezervaciju te automatsku
+    sinkronizaciju rezervacija s aplikacijom <strong>myrent</strong>.
+  </p>
+  <div class="highlight">
+    <p>
+      Radi bržeg i transparentnijeg dogovora, djelomično funkcionalan prototip (PoC)
+      stranice već je izrađen i dostupan za demonstraciju. Posjetitelji mogu pretraživati
+      ponudu, ispuniti rezervacijski obrazac i obaviti online prijavu gostiju.
+    </p>
+  </div>
+  <p>
+    Cilj ovog razgovora jest razumjeti Vaše poslovne potrebe, provjeriti usklađenost
+    prototipaom s Vašim očekivanjima i dogovoriti sljedeće korake.
+  </p>
+
+  <!-- 2. ŠTO JE NAPRAVLJENO -->
+  <h2>2. Trenutni status – što je već gotovo</h2>
+  <p>Prototip stranice uključuje sljedeće funkcionalne komponente:</p>
+  <ul>
+    <li>Naslovna stranica s navigacijom i brendiranjem <span class="tag tag-done">GOTOVO</span></li>
+    <li>Pregled smještajnih jedinica (placeholder sučelje) <span class="tag tag-wip">U TIJEKU</span></li>
+    <li>Pregled i pretraživanje rent-a-car vozila <span class="tag tag-done">GOTOVO</span></li>
+    <li>Automatski prikaz apartmana i cijena iz myrent API-ja <span class="tag tag-wip">U TIJEKU</span></li>
+    <li>Implementacija rent-a-car rezervacija (ovisno o dostupnosti postojećeg sustava) <span class="tag tag-plan">PLANIRA SE</span></li>
+    <li>Inline obrazac za rezervaciju uz validaciju <span class="tag tag-done">GOTOVO</span></li>
+    <li>Online prijava gostiju (eVisitor-ready) <span class="tag tag-done">GOTOVO</span></li>
+    <li>REST API za kreiranje rezervacija (pohrana u JSON) <span class="tag tag-done">GOTOVO</span></li>
+    <li>Stranice: Aktivnosti, FAQ, Kako do nas, O nama <span class="tag tag-done">GOTOVO</span></li>
+    <li>Simulirana potvrda rezervacije e-mailom <span class="tag tag-wip">U TIJEKU</span></li>
+    <li>myrent-kompatibilne API putanje (local adapter) <span class="tag tag-done">GOTOVO</span></li>
+    <li>Spajanje na produkcijski myrent API (API ključevi klijenta) <span class="tag tag-wip">U TIJEKU</span></li>
+    <li>Pravi sadržaj (tekst, fotografije, cijene) <span class="tag tag-plan">KLIJENT DOSTAVLJA</span></li>
+  </ul>
+
+  <!-- 3. MYRENT INTEGRACIJA -->
+  <h2>3. Integracija s myrent sustavom</h2>
+  <p>
+    myrent ima službenu API dokumentaciju (myrent.readme.io) i potvrđene endpointove za web
+    integraciju. Prototip je već pripremljen tako da koristi iste putanje i strukturu zahtjeva
+    kao myrent API, uz lokalni adapter za demonstraciju bez API ključeva.
+  </p>
+  <ul>
+    <li>Model rada: <strong>myrent-first</strong> (myrent je glavni izvor podataka za objekte, cijene i dostupnost)</li>
+    <li>Podrzane myrent putanje: customer/list, customer/prices_fast/{id}, booking/calendar/{id}</li>
+    <li>Podrzano kreiranje rezervacije: rents/add/{object_id}</li>
+    <li>Lokalni adapter koristi placeholder myrent ID-eve i lokalne JSON datoteke za PoC fazu</li>
+    <li>Produkcijsko spajanje aktivira se nakon unosa MYRENT_B2B_GUID i MYRENT_USER_GUID</li>
+    <li>Zastita stabilnosti: cache + fallback prikaz zadnje valjane verzije podataka ako je API privremeno nedostupan</li>
+  </ul>
+  <p style="font-size:12px; color:#888; margin-top:8px;">
+    * Za finalno produkcijsko povezivanje potrebni su API pristupni podaci klijenta i potvrda
+    automatski dohvaćenog mapiranja objekata prije objave.
+  </p>
+
+  <!-- 4. FAZE PROJEKTA -->
+  <h2>4. Predviđene faze i okvirni rokovi</h2>
+  <table class="phase-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Faza</th>
+        <th>Što uključuje</th>
+        <th>Okvirni rok</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Analiza i dogovor</strong></td>
+        <td>Definiranje opsega, preuzimanje API kljuceva, prikupljanje sadržaja</td>
+        <td>1 tjedan</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>UX i funkcionalni dogovor</strong></td>
+        <td>Dogovor finalnog prikaza podataka koji se automatski dohvaćaju iz myrent API-ja</td>
+        <td>3–5 dana</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Dizajn i sadržaj</strong></td>
+        <td>Prilagodba izgleda brendu, unos fotografija, tekstova i cijena</td>
+        <td>1–2 tjedna</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Rent-a-car implementacija</strong></td>
+        <td>Scenarij A: spajanje s postojećim sustavom (uz API pristup) ili Scenarij B: novi modul rezervacija</td>
+        <td>5–12 dana</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>myrent integracija</strong></td>
+        <td>Spajanje s myrent API-jem, sinkronizacija objekata, cache/fallback i testiranje rezervacijskog toka</td>
+        <td>1–2 tjedna</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Testiranje i objava</strong></td>
+        <td>Testiranje na uređajima, hosting setup, objava na domenu</td>
+        <td>3–5 dana</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Podrška i izmjene</strong></td>
+        <td>Sitne izmjene, praćenje rada, podrška 30 dana</td>
+        <td>30 dana</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px; color:#888;">Ukupno: <strong>5 – 9 tjedana</strong> ovisno o dostupnosti pristupa postojećem rent-a-car sustavu, brzini dogovora i testiranju.</p>
+
+  <!-- 5. INVESTICIJA -->
+  <h2>5. Okvirna investicija</h2>
+  <p>Cijena se formira prema konačnom opsegu, no okvirni rasponi su sljedeći:</p>
+  <div class="price-box">
+    <div class="price-row">
+      <span class="plabel">Izrada i prilagodba stranice (finalni UX, sadržaj, responsive)</span>
+      <span class="pvalue">1.200 – 2.500 EUR</span>
+    </div>
+    <div class="price-row">
+      <span class="plabel">Automatski prikaz i osvježavanje podataka iz myrent API-ja</span>
+      <span class="pvalue">300 – 700 EUR</span>
+    </div>
+    <div class="price-row">
+      <span class="plabel">myrent API integracija i mapiranje ID-eva</span>
+      <span class="pvalue">600 – 1.300 EUR</span>
+    </div>
+    <div class="price-row">
+      <span class="plabel">Rent-a-car implementacija (integracija postojećeg sustava ili novi modul)</span>
+      <span class="pvalue">500 – 2.000 EUR</span>
+    </div>
+    <div class="price-row">
+      <span class="plabel">Sinkronizacijski sloj (cache/fallback, timeout/retry, error log)</span>
+      <span class="pvalue">250 – 700 EUR</span>
+    </div>
+    <div class="price-row">
+      <span class="plabel">Hosting i domena (godišnje)</span>
+      <span class="pvalue">50 – 120 EUR / god.</span>
+    </div>
+    <div class="price-row">
+      <span class="plabel">Podrška i održavanje (opcija)</span>
+      <span class="pvalue">30 – 80 EUR / mj.</span>
+    </div>
+    <div class="price-row total-row" style="margin-top:6px; padding-top:10px; border-top:2px solid #1a3a5c;">
+      <span class="plabel">Okvirni ukupni projekt</span>
+      <span class="pvalue">2.850 – 6.600 EUR</span>
+    </div>
+    <p class="price-note">* Konačna cijena dogovara se nakon definiranja opsega. Navedene su neto cijene.</p>
+  </div>
+
+  <!-- 6. ŠTO TREBAM OD VAS -->
+  <h2>6. Što je potrebno s Vaše strane</h2>
+  <ul>
+    <li>MYRENT_B2B_GUID i MYRENT_USER_GUID (ili administratorski pristup za generiranje)</li>
+    <li>Potvrda automatski dohvaćene liste objekata i njihove vidljivosti na web stranici</li>
+    <li>Dogovor oko finalnog UX-a za stranicu smještaja (placeholder prema produkcijskom sučelju)</li>
+    <li>Za rent-a-car: API dokumentacija i pristup postojećem sustavu, ili odobrenje za razvoj novog modula</li>
+    <li>Fotografije smještajnih jedinica i vozila (minimalno 3–5 po jedinici)</li>
+    <li>Opisi, cijene i uvjeti rezervacije</li>
+    <li>Logo i eventualne smjernice brenda (boje, font)</li>
+    <li>Podaci za e-mail potvrde (naziv tvrtke, kontakt podaci)</li>
+    <li>Pristup domeni ili dogovor oko hosting rješenja</li>
+  </ul>
+
+  <!-- 7. PITANJA ZA RAZGOVOR -->
+  <h2>7. Pitanja za naš razgovor</h2>
+  <ul class="question-list">
+    <li>Koliko smještajnih jedinica i vozila treba biti prikazano?</li>
+    <li>Imate li aktivan API pristup i mozete li odmah dostaviti MYRENT_B2B_GUID i MYRENT_USER_GUID?</li>
+    <li>Za rent-a-car: postoji li već aplikacija s API pristupom ili želite novi modul u sklopu weba?</li>
+    <li>Tko vodi cjenik i dostupnost vozila (postojeći sustav ili nova administracija)?</li>
+    <li>Primaju li se rezervacije samo direktno ili i putem Booking.com / Airbnb?</li>
+    <li>Treba li integracija eVisitor prijave gostiju?</li>
+    <li>Postoji li postojeća domena ili treba nova?</li>
+    <li>Tko će unositi i ažurirati sadržaj nakon objave (Vi ili ja)?</li>
+    <li>Postoji li vizualni identitet (logo, boje) koji treba slijediti?</li>
+  </ul>
+
+  <!-- 8. SLJEDEĆI KORACI -->
+  <h2>8. Prijedlog sljedećih koraka</h2>
+  <ol style="padding-left:18px; line-height:1.9; color:#333;">
+    <li>Razgovor i prezentacija prototipaom (ovaj sastanak)</li>
+    <li>Usklađivanje opsega i potvrda suradnje</li>
+    <li>Potpisivanje dogovora / narudžbenice</li>
+    <li>Početak faze 1 – analiza i priprema sadržaja</li>
+  </ol>
+
+  <!-- POTPIS -->
+  <div class="footer">
+    <div class="signature-block">
+      <p>S poštovanjem,</p>
+      <div class="sig-line"><!-- VAŠE IME --><br /><span style="font-size:11px; color:#888;">Potpis / Datum</span></div>
+    </div>
+    <div style="text-align:right; font-size:12px; color:#aaa; align-self:flex-end;">
+      Povjerljivo · Za internu upotrebu<br />
+      Prijedlog ne predstavlja pravno obvezujući dokument
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

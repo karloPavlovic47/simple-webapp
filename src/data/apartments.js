@@ -1,6 +1,9 @@
+// myrentId: placeholder ID koji odgovara ID-u nekretnine u myrent sustavu.
+// Zamijeniti s pravim ID-evima nakon što klijent da pristup myrent dashboardu.
 module.exports = [
   {
     id: 'apt-1',
+    myrentId: 1001,
     name: 'Adriatic View Studio',
     imageUrl: 'https://picsum.photos/seed/apt1/800/560',
     city: 'Split',
@@ -15,6 +18,7 @@ module.exports = [
   },
   {
     id: 'apt-2',
+    myrentId: 1002,
     name: 'Old Town Comfort Flat',
     imageUrl: 'https://picsum.photos/seed/apt2/800/560',
     city: 'Dubrovnik',
@@ -29,6 +33,7 @@ module.exports = [
   },
   {
     id: 'apt-3',
+    myrentId: 1003,
     name: 'Istria Family Residence',
     imageUrl: 'https://picsum.photos/seed/apt3/800/560',
     city: 'Pula',
@@ -43,6 +48,7 @@ module.exports = [
   },
   {
     id: 'apt-4',
+    myrentId: 1004,
     name: 'Zagreb Downtown Loft',
     imageUrl: 'https://picsum.photos/seed/apt4/800/560',
     city: 'Zagreb',
@@ -57,6 +63,7 @@ module.exports = [
   },
   {
     id: 'apt-5',
+    myrentId: 1005,
     name: 'Makarska Beach Suite',
     imageUrl: 'https://picsum.photos/seed/apt5/800/560',
     city: 'Makarska',
@@ -71,6 +78,7 @@ module.exports = [
   },
   {
     id: 'apt-6',
+    myrentId: 1006,
     name: 'Zadar Harbor Apartment',
     imageUrl: 'https://picsum.photos/seed/apt6/800/560',
     city: 'Zadar',
@@ -85,6 +93,7 @@ module.exports = [
   },
   {
     id: 'apt-7',
+    myrentId: 1007,
     name: 'Rovinj Garden Residence',
     imageUrl: 'https://picsum.photos/seed/apt7/800/560',
     city: 'Rovinj',

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prijedlog suradnje - Mljet4You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body data-title-key="title.proposal">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <svg class="brand-logo" viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="20" r="14" fill="#f0d000"/>
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polygon points="4,52 60,52 60,64 4,64" fill="#1a6dbf"/>
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        Mljet4You
+      </a>
+      <nav class="nav">
+        <a href="/apartments.html" data-i18n="nav.apartments">Smjestaj</a>
+        <a href="/rentacar.html" data-i18n="nav.rentacar">Rent a car</a>
+        <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
+        <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
+        <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
+        <a href="/proposal.html" data-i18n="nav.proposal">Prijedlog suradnje</a>
+        <a href="/about.html" data-i18n="nav.about">O nama</a>
+        <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
+          <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
+          <button type="button" class="lang-flag" data-lang="en" aria-label="English" data-i18n-aria-label="common.languageEnglish"><img class="flag-icon" src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="" aria-hidden="true"></button>
+        </div>
+      </nav>
+    </header>
+
+    <section class="page-intro card-plain apartments-hero fade-up">
+      <h1>Prijedlog suradnje (inicijalni razgovor)</h1>
+      <p>Ova verzija služi za prvi sastanak i pregled opsega. Finalna ponuda i cijena definiraju se nakon usklađivanja svih zahtjeva i tehničkih pristupa.</p>
+    </section>
+
+    <section class="card-plain fade-up panel-stack">
+      <h2>Što je cilj projekta</h2>
+      <ul>
+        <li>Web prezentacija smještaja i rent-a-car ponude s modernim UX-om.</li>
+        <li>Direktne rezervacije kroz web uz povezivanje s myrent sustavom.</li>
+        <li>Jedno centralno mjesto održavanja podataka (myrent-first model).</li>
+      </ul>
+    </section>
+
+    <section class="card-plain fade-up panel-stack">
+      <h2>Trenutni status</h2>
+      <ul>
+        <li>Funkcionalan PoC je već izrađen i dostupan za demonstraciju.</li>
+        <li>Smještaj i rent-a-car sučelja postoje s osnovnim rezervacijskim tokom.</li>
+        <li>Dodana je detaljna stranica apartmana (slike, opis, rezervacija).</li>
+        <li>myrent-kompatibilne API putanje su pripremljene (local adapter + API način rada).</li>
+      </ul>
+    </section>
+
+    <section class="card-plain fade-up panel-stack">
+      <h2>Predviđeni opseg implementacije</h2>
+      <ul>
+        <li>
+          API dokumentacija (provjera endpointa):
+          <a href="https://myrent.readme.io/reference/web-api-guide" target="_blank" rel="noopener">myrent.readme.io/reference/web-api-guide</a>
+        </li>
+        <li>Spajanje na produkcijski myrent API (MYRENT_B2B_GUID + MYRENT_USER_GUID).</li>
+        <li>Automatski prikaz objekata, cijena, dostupnosti i sadržaja iz myrent sustava.</li>
+        <li>Strict booking način rada za izbjegavanje overbookinga.</li>
+        <li>Stabilnost sustava: cache/fallback prikaz ako je API privremeno nedostupan.</li>
+        <li>Rent-a-car implementacija:
+          Scenarij A: integracija s postojećim sustavom (ako postoji API pristup).
+          Scenarij B: novi modul rent-a-car rezervacija unutar web aplikacije.
+        </li>
+      </ul>
+    </section>
+
+    <section class="card-plain fade-up panel-stack">
+      <h2>Što je potrebno s Vaše strane</h2>
+      <ul>
+        <li>Pristupni podaci za myrent API (B2B GUID i User GUID).</li>
+        <li>Potvrda koji objekti i vozila idu javno na web.</li>
+        <li>Potvrda scenarija za rent-a-car (postojeći sustav ili novi modul).</li>
+        <li>Finalna potvrda sadržaja i vizualnog smjera prije objave.</li>
+      </ul>
+    </section>
+
+    <section class="card-plain fade-up panel-stack">
+      <h2>Sljedeći koraci</h2>
+      <ol>
+        <li>Prezentacija PoC-a i inicijalni razgovor.</li>
+        <li>Potvrda opsega i tehničkih preduvjeta.</li>
+        <li>Dostava API pristupa i dogovor modela rent-a-car implementacije.</li>
+        <li>Dostava finalne ponude s cijenom i rokovima.</li>
+      </ol>
+      <p class="muted">Napomena: ovo je inicijalni dokument za prvu fazu razgovora. Cijena nije javno prikazana u ovoj verziji.</p>
+    </section>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apartman detalji - Mljet4You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body data-title-key="title.apartmentDetails">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <svg class="brand-logo" viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="20" r="14" fill="#f0d000"/>
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polygon points="4,52 60,52 60,64 4,64" fill="#1a6dbf"/>
+          <polyline points="4,52 20,28 32,42 44,28 60,52" fill="none" stroke="#2b9e3c" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        Mljet4You
+      </a>
+      <nav class="nav">
+        <a href="/apartments.html" data-i18n="nav.apartments">Smjestaj</a>
+        <a href="/rentacar.html" data-i18n="nav.rentacar">Rent a car</a>
+        <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
+        <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
+        <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
+        <a href="/proposal.html" data-i18n="nav.proposal">Prijedlog suradnje</a>
+        <a href="/about.html" data-i18n="nav.about">O nama</a>
+        <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
+          <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
+          <button type="button" class="lang-flag" data-lang="en" aria-label="English" data-i18n-aria-label="common.languageEnglish"><img class="flag-icon" src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="" aria-hidden="true"></button>
+        </div>
+      </nav>
+    </header>
+
+    <section class="page-intro card-plain apartments-hero fade-up">
+      <a href="/apartments.html" class="muted" data-i18n="apartments.backToList">← Natrag na listu apartmana</a>
+      <h1 data-i18n="apartmentDetails.title">Detalji apartmana</h1>
+      <p data-i18n="apartmentDetails.subtitle">Pregled fotografija, sadržaja i brza rezervacija.</p>
+    </section>
+
+    <section id="apartmentDetailsPage" class="apartment-detail-layout"></section>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

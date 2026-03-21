@@ -9,14 +9,17 @@ const I18N = {
     'nav.activities': 'Aktivnosti',
     'nav.faq': 'FAQ i info guide',
     'nav.directions': 'Kako do nas',
+    'nav.proposal': 'Prijedlog suradnje',
     'nav.about': 'O nama',
     'title.home': 'Mljet4You',
     'title.apartments': 'Smjestaj - Mljet4You',
+    'title.apartmentDetails': 'Detalji apartmana - Mljet4You',
     'title.rentacar': 'Rent a car - Mljet4You',
     'title.reserve': 'Online check-in i rezervacija - Mljet4You',
     'title.activities': 'Aktivnosti - Mljet4You',
     'title.faq': 'FAQ i info guide - Mljet4You',
     'title.directions': 'Kako do nas - Mljet4You',
+    'title.proposal': 'Prijedlog suradnje - Mljet4You',
     'title.about': 'O nama - Mljet4You',
     'home.heroTitle': 'Renting your property has never been easier',
     'home.heroText': 'Dva sucelja, jedna jasna logika: odvojeni kalendari za smjestaj i rent a car, uz gostujuce procese za online check-in, eVisitor prijavu i automatsku potvrdu rezervacije.',
@@ -185,6 +188,14 @@ const I18N = {
     'apartments.noResults': 'Nema rezultata za trazene kriterije.',
     'apartments.foundResults': 'Pronadeno {count} apartmana',
     'apartments.summary': '{available} dostupno za trazeni termin. Odabir gostiju: {guests}.',
+    'apartments.viewDetails': 'Detalji',
+    'apartments.backToList': '← Natrag na listu apartmana',
+    'apartmentDetails.title': 'Detalji apartmana',
+    'apartmentDetails.subtitle': 'Pregled fotografija, sadržaja i brza rezervacija.',
+    'apartmentDetails.notFound': 'Apartman nije pronađen.',
+    'apartmentDetails.locationDistance': '{city} • {distance} km do centra',
+    'apartmentDetails.reserveTitle': 'Brza rezervacija',
+    'apartmentDetails.currentOccupancy': 'Trenutno aktivne rezervacije: {count}',
   },
   en: {
     'nav.apartments': 'Accommodation',
@@ -192,14 +203,17 @@ const I18N = {
     'nav.activities': 'Activities',
     'nav.faq': 'FAQ and info guide',
     'nav.directions': 'How to reach us',
+    'nav.proposal': 'Project proposal',
     'nav.about': 'About us',
     'title.home': 'Mljet4You',
     'title.apartments': 'Accommodation - Mljet4You',
+    'title.apartmentDetails': 'Apartment details - Mljet4You',
     'title.rentacar': 'Rent a car - Mljet4You',
     'title.reserve': 'Online check-in and reservation - Mljet4You',
     'title.activities': 'Activities - Mljet4You',
     'title.faq': 'FAQ and info guide - Mljet4You',
     'title.directions': 'How to reach us - Mljet4You',
+    'title.proposal': 'Project proposal - Mljet4You',
     'title.about': 'About us - Mljet4You',
     'home.heroTitle': 'Renting your property has never been easier',
     'home.heroText': 'Two interfaces, one clear logic: separate calendars for accommodation and rent-a-car, with guest flows for online check-in, eVisitor registration, and automatic booking confirmation.',
@@ -368,6 +382,14 @@ const I18N = {
     'apartments.noResults': 'No results for the selected criteria.',
     'apartments.foundResults': 'Found {count} apartments',
     'apartments.summary': '{available} available for selected dates. Guests selected: {guests}.',
+    'apartments.viewDetails': 'Details',
+    'apartments.backToList': '← Back to apartments list',
+    'apartmentDetails.title': 'Apartment details',
+    'apartmentDetails.subtitle': 'Photos, amenities, and quick reservation form.',
+    'apartmentDetails.notFound': 'Apartment not found.',
+    'apartmentDetails.locationDistance': '{city} • {distance} km from center',
+    'apartmentDetails.reserveTitle': 'Quick reservation',
+    'apartmentDetails.currentOccupancy': 'Current active reservations: {count}',
   },
 };
 
@@ -1021,6 +1043,7 @@ if (apartmentsContainer) {
           <p class="listing-total">${formatMoney(totalPrice)}</p>
           <p class="muted">${nights > 0 ? t('apartments.nights', { count: nights }) : t('apartments.pricePerNight')} • ${formatMoney(apt.pricePerNight)} ${t('apartments.perNightSuffix')}</p>
         </div>
+        <a class="btn btn-outline" href="/apartment.html?id=${encodeURIComponent(apt.id)}">${t('apartments.viewDetails')}</a>
         <button class="btn open-booking-btn" ${available ? '' : 'disabled'}>
           ${available ? t('apartments.bookNow') : t('apartments.notAvailable')}
         </button>
@@ -1116,4 +1139,99 @@ if (apartmentsContainer) {
       apartmentsContainer.textContent = `${t('common.errorPrefix')}: ${error.message}`;
     }
   })();
+}
+
+const apartmentDetailsPage = document.getElementById('apartmentDetailsPage');
+if (apartmentDetailsPage) {
+  function detailsMoney(amount) {
+    return new Intl.NumberFormat(t('common.locale'), {
+      style: 'currency',
+      currency: 'EUR',
+      maximumFractionDigits: 0,
+    }).format(amount);
+  }
+
+  function detailsDefaultDates() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    const dayAfter = new Date(now);
+    dayAfter.setDate(now.getDate() + 4);
+    return { checkin: formatDate(tomorrow), checkout: formatDate(dayAfter) };
+  }
+
+  async function loadApartmentDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const apartmentId = params.get('id');
+    if (!apartmentId) {
+      apartmentDetailsPage.innerHTML = `<p class="card-plain">${t('apartmentDetails.notFound')}</p>`;
+      return;
+    }
+
+    apartmentDetailsPage.innerHTML = `<p class="card-plain">${t('common.loadingApartments')}</p>`;
+
+    try {
+      const response = await fetch(`/api/apartments/${encodeURIComponent(apartmentId)}`);
+      const payload = await response.json();
+      if (!response.ok || !payload?.apartment) {
+        apartmentDetailsPage.innerHTML = `<p class="card-plain">${t('apartmentDetails.notFound')}</p>`;
+        return;
+      }
+
+      const apt = payload.apartment;
+      const bookings = payload.bookings || [];
+      const defaults = detailsDefaultDates();
+      const perks = (apt.perks || []).join(' • ');
+
+      apartmentDetailsPage.innerHTML = `
+        <article class="card-plain apartment-detail-card fade-up">
+          <div class="apartment-detail-hero">
+            <img src="${apt.imageUrl || ''}" alt="${apt.name}" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <div class="apartment-detail-content">
+            <p class="listing-location">${t('apartmentDetails.locationDistance', { city: apt.city || '-', distance: apt.distanceKm || '-' })}</p>
+            <h2>${apt.name}</h2>
+            <p class="listing-description">${apt.description || ''}</p>
+            <p class="listing-perks">${perks}</p>
+            <p class="listing-type">${t('apartments.type', { type: apt.type || '-' })}</p>
+            <p class="listing-total">${detailsMoney(apt.pricePerNight)} <span class="muted">${t('apartments.perNightSuffix')}</span></p>
+            <p class="muted">${t('apartmentDetails.currentOccupancy', { count: bookings.length })}</p>
+          </div>
+        </article>
+        <section class="card-plain apartment-detail-booking fade-up">
+          <h3>${t('apartmentDetails.reserveTitle')}</h3>
+          <form id="apartmentDetailsBookingForm" class="apt-book-form">
+            <label>${t('apartments.form.name')}<input name="name" required></label>
+            <label>${t('apartments.form.email')}<input name="email" type="email" required></label>
+            <label>${t('apartments.form.checkin')}<input name="checkin" type="date" value="${defaults.checkin}" required></label>
+            <label>${t('apartments.form.checkout')}<input name="checkout" type="date" value="${defaults.checkout}" required></label>
+            <label>${t('apartments.form.guests')}<input name="guests" type="number" min="1" value="2" required></label>
+            <label class="check-line"><input type="checkbox" name="evisitor" value="1" checked>${t('apartments.form.evisitor')}</label>
+            <button type="submit" class="btn">${t('apartments.form.confirm')}</button>
+            <pre class="apt-output"></pre>
+          </form>
+        </section>
+      `;
+
+      const form = document.getElementById('apartmentDetailsBookingForm');
+      if (!form) return;
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const out = form.querySelector('.apt-output');
+        out.textContent = t('apartments.sending');
+        try {
+          const body = formDataToObject(form);
+          const booking = await postJson(`/api/apartments/${apt.id}/book`, body);
+          out.textContent = t('apartments.reservationSuccess', { id: booking.booking.id });
+        } catch (error) {
+          out.textContent = `${t('common.errorPrefix')}: ${error.message}`;
+        }
+      });
+    } catch (error) {
+      apartmentDetailsPage.innerHTML = `<p class="card-plain">${t('common.errorPrefix')}: ${error.message}</p>`;
+    }
+  }
+
+  loadApartmentDetails();
 }
