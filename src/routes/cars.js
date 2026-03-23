@@ -1,5 +1,4 @@
 const express = require('express');
-const { readStorage, writeStorage } = require('../services/storage');
 
 const router = express.Router();
 
@@ -15,25 +14,6 @@ function createCarReservation(payload) {
     return { ok: false, code: 400, body: { success: false, message: 'Invalid dates' } };
   }
 
-  const storage = readStorage();
-  const overlap = storage.cars.some((booking) => {
-    if (booking.carType !== (carType || 'compact') || booking.location !== (location || 'Zagreb')) return false;
-    const bStart = new Date(booking.pickup);
-    const bEnd = new Date(booking.dropoff);
-    return start < bEnd && end > bStart;
-  });
-
-  if (overlap) {
-    return {
-      ok: false,
-      code: 409,
-      body: {
-        success: false,
-        message: 'Selected vehicle type is unavailable for those dates at this location',
-      },
-    };
-  }
-
   const reservation = {
     id: 'CAR-' + Date.now(),
     name,
@@ -41,19 +21,25 @@ function createCarReservation(payload) {
     pickup,
     dropoff,
     carType: carType || 'compact',
-    location: location || 'Zagreb',
+    location: location || 'At office location',
     confirmationEmailSent: true,
+    deliveryChargesMayApply: location === 'Delivery',
     createdAt: new Date().toISOString(),
   };
 
-  storage.cars.push(reservation);
-  writeStorage(storage);
-  return { ok: true, code: 200, body: { success: true, reservation } };
+  return {
+    ok: true,
+    code: 200,
+    body: {
+      success: true,
+      reservation,
+      message: 'Inquiry received and confirmation email sent',
+    },
+  };
 }
 
 router.get('/rentacar/bookings', (req, res) => {
-  const storage = readStorage();
-  res.json({ bookings: storage.cars });
+  res.json({ bookings: [] });
 });
 
 router.post('/rentacar/book', (req, res) => {

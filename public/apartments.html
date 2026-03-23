@@ -31,7 +31,6 @@
         <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
         <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
         <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
-        <a href="/proposal.html" data-i18n="nav.proposal">Prijedlog suradnje</a>
         <a href="/about.html" data-i18n="nav.about">O nama</a>
         <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
           <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
@@ -41,39 +40,11 @@
     </header>
 
     <section class="page-intro card-plain apartments-hero fade-up">
-      <h1 data-i18n="apartments.introTitle">Pronadi svoj idealan apartman</h1>
-      <p data-i18n="apartments.introText">Pretrazi smjestaj po gradu, terminu i broju gostiju.</p>
-    </section>
-
-    <section class="booking-search card-plain fade-up">
-      <form id="apartmentsSearchForm" class="booking-search-grid">
-        <label>
-          <span data-i18n="apartments.location">Lokacija</span>
-          <input name="destination" placeholder="npr. Split" data-i18n-placeholder="apartments.locationPlaceholder" />
-        </label>
-        <label>
-          <span data-i18n="apartments.checkin">Check-in</span>
-          <input name="checkin" type="date" required />
-        </label>
-        <label>
-          <span data-i18n="apartments.checkout">Check-out</span>
-          <input name="checkout" type="date" required />
-        </label>
-        <label>
-          <span data-i18n="apartments.guests">Gosti</span>
-          <input name="guests" type="number" min="1" value="2" required />
-        </label>
-        <button type="submit" class="btn booking-search-btn" data-i18n="common.search">Pretrazi</button>
-      </form>
-    </section>
-
-    <section class="results-meta fade-up">
-      <h2 id="resultsTitle" data-i18n="apartments.availableTitle">Dostupni apartmani</h2>
-      <p id="resultsSummary" class="muted" data-i18n="common.loadingResults">Ucitavanje rezultata...</p>
-    </section>
-
-    <section id="apartmentsList" class="panel-stack booking-results">
-      <span data-i18n="common.loadingApartments">Ucitavanje apartmana...</span>
+      <h1>Smjestaj</h1>
+      <p>Preusmjeravanje na gost portal...</p>
+      <p class="muted">Ako se preusmjeravanje ne dogodi automatski, otvorite:
+        <a href="https://mljet4you.hr/" target="_blank" rel="noopener">https://mljet4you.hr/</a>
+      </p>
     </section>
 
     <aside class="home-float-links" aria-label="Kontakt linkovi" data-i18n-aria-label="contact.linksAria">
@@ -97,6 +68,11 @@
       </a>
     </aside>
   </div>
+  <script>
+    setTimeout(function () {
+      window.location.href = 'https://mljet4you.hr/';
+    }, 700);
+  </script>
   <script src="/app.js"></script>
 </body>
 </html>

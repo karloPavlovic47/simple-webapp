@@ -27,6 +27,18 @@
       }
     ]
   },
-  "cars": [],
+  "cars": [
+    {
+      "id": "CAR-1774205841803",
+      "name": "Test User",
+      "email": "test@example.com",
+      "pickup": "2026-07-10",
+      "dropoff": "2026-07-14",
+      "carType": "mini",
+      "location": "Delivery",
+      "confirmationEmailSent": true,
+      "createdAt": "2026-03-22T18:57:21.803Z"
+    }
+  ],
   "guestCheckins": []
 }

@@ -13,9 +13,8 @@ This workspace contains a simple web application built with Node.js and Express.
 Current UI/flow notes:
 
 - Main navigation is Croatian-first: `Naslovnica`, `Smjestaj`, `Rent a car`, `Aktivnosti`, `FAQ i info guide`, `Kako do nas`, `O nama`.
-- Smjestaj and rent-a-car are implemented as separate Booking.com-style search/results interfaces.
-- Smjestaj now uses a Booking.com-style search/results layout (location, check-in/out, guests) with 7 placeholder apartments and inline reservation forms.
-- Rent a car now uses a Booking.com-style search/results layout (location, pickup/dropoff, drivers) with 3 placeholder vehicles and inline reservation forms.
+- Smjestaj page now redirects users to the guest portal at `https://mljet4you.hr/`.
+- Rent a car now uses category-based results (Mini, Small, Medium, Comfort, Premium) with seasonal pricing tiers (1-3, 4-7, 8+ days).
 - Guest flow includes online check-in, eVisitor flag, and simulated automatic email confirmation in API responses.
 
 To start the server: Run `node server.js` in the background to launch at http://localhost:3000.

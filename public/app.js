@@ -53,13 +53,20 @@ const I18N = {
     'apartments.checkout': 'Check-out',
     'apartments.guests': 'Gosti',
     'apartments.availableTitle': 'Dostupni apartmani',
-    'rentacar.introTitle': 'Rent a car pretraga',
-    'rentacar.introText': 'Odaberi lokaciju i termine te rezerviraj vozilo direktno iz rezultata.',
-    'rentacar.pickupLocation': 'Lokacija preuzimanja',
+    'rentacar.introTitle': 'Rent a car kategorije',
+    'rentacar.introText': 'Odaberi lokaciju i termine te rezerviraj kategoriju vozila uz sezonske cijene.',
+    'rentacar.pickupLocation': 'Nacin preuzimanja',
+    'rentacar.pickupAtOffice': 'At office location',
+    'rentacar.pickupDelivery': 'Delivery',
+    'rentacar.deliveryNotice': 'U slucaju odabira delivery opcije, dodatne cijene dostave mogu biti ukljucene.',
     'rentacar.pickupDate': 'Datum preuzimanja',
     'rentacar.dropoffDate': 'Datum povrata',
     'rentacar.drivers': 'Vozaca',
-    'rentacar.available': 'Dostupna vozila',
+    'rentacar.available': 'Dostupne kategorije',
+    'rentacar.dateSelection': 'Selekcija datuma',
+    'rentacar.zoneTitle': 'Zona preuzimanja i dostave',
+    'rentacar.zoneText': 'Bazna lokacija je prikazana na mapi, s oznacenim radijusom usluge od 5 km.',
+    'rentacar.deliveryOutsideNotice': 'Dostava izvan oznacenog radijusa od 5 km dodatno se naplacuje.',
     'reserve.introTitle': 'Gost / posjetitelj',
     'reserve.introText': 'Online check-in, prijava u eVisitor i automatski mail potvrde rezervacije.',
     'reserve.quickBookingTitle': 'Brza rezervacija smjestaja',
@@ -143,16 +150,46 @@ const I18N = {
     'car.form.dropoff': 'Datum povrata',
     'car.form.location': 'Lokacija',
     'car.form.vehicleType': 'Tip vozila',
+    'car.form.total': 'Ukupna cijena',
+    'car.form.deliveryNotice': 'Napomena: delivery moze ukljucivati dodatne troskove dostave.',
     'car.form.confirm': 'Potvrdi rezervaciju vozila',
+    'car.previewOnly': 'Mail nije poslan. Prikazan je samo preview poruke.',
+    'car.mailPreview.title': 'Preview confirmation maila',
+    'car.mailPreview.subtitle': 'Ovako bi izgledala poruka nakon slanja upita.',
+    'car.mailPreview.close': 'Zatvori',
+    'car.mailPreview.subject': 'Naslov',
+    'car.mailPreview.to': 'Prima',
+    'car.mailPreview.body': 'Sadrzaj poruke',
+    'car.mailPreview.subjectValue': 'Mljet4You rent a car upit - {vehicle}',
+    'car.mailPreview.greeting': 'Pozdrav {name},',
+    'car.mailPreview.line1': 'zaprimili smo vas upit za kategoriju vozila {vehicle}.',
+    'car.mailPreview.line2': 'Termin najma: {pickup} do {dropoff} ({days} dana).',
+    'car.mailPreview.line3': 'Nacin preuzimanja: {location}.',
+    'car.mailPreview.line4': 'Procijenjena cijena: {total} ({perDay} po danu).',
+    'car.mailPreview.line5': 'Delivery opcija moze ukljucivati dodatne troskove dostave.',
+    'car.mailPreview.line6': 'Javit cemo vam se uskoro s finalnom potvrdom i detaljima preuzimanja.',
     'car.sending': 'Slanje rezervacije vozila...',
     'car.reservationSuccess': 'Rezervacija uspjesna: {id}',
     'car.rating': 'Ocjena {rating}',
     'car.reviews': '{count} recenzija',
     'car.seatsCategory': '{count} sjedala • Kategorija: {type}',
+    'car.luggage': '{count} kom. prtljage',
+    'car.seasonLabel': 'Sezona',
+    'car.tariffLabel': 'Tarifa',
+    'car.tierShort': '1-3 dana',
+    'car.tierMid': '4-6 dana',
+    'car.tierLong': '7+ dana',
+    'car.seasonLow': 'Niska (I-IV, XI-XII)',
+    'car.seasonShoulder': 'Pred/Posezona (V, X)',
+    'car.seasonWarm': 'Topla (VI, IX)',
+    'car.seasonHigh': 'Visoka (VII, VIII)',
+    'car.seasonRates': 'Cjenik 1-3 / 4-6 / 7+ dana',
     'car.available': 'Dostupno',
     'car.unavailableDates': 'Nedostupno za odabrane datume',
     'car.days': '{count} dana',
     'car.pricePerDay': 'Cijena po danu',
+    'car.priceForDates': 'Cijena za odabrane datume: {pickup} - {dropoff}',
+    'car.totalForDates': 'Ukupna cijena za odabrane datume: {total}',
     'car.perDaySuffix': '/ dan',
     'car.book': 'Rezerviraj vozilo',
     'car.hideForm': 'Sakrij formu',
@@ -160,8 +197,8 @@ const I18N = {
     'car.invalidDates': 'Datum povrata mora biti nakon datuma preuzimanja.',
     'car.zeroResults': 'Pronadeno 0 vozila',
     'car.fixDates': 'Ispravite datume i pokusajte ponovno.',
-    'car.foundResults': 'Pronadena {count} vozila',
-    'car.summary': '{available} dostupno na lokaciji {location} za odabrani termin.',
+    'car.foundResults': 'Pronadeno {count} kategorija',
+    'car.summary': '{available} dostupnih kategorija za odabrani termin.',
     'apartments.form.name': 'Ime i prezime',
     'apartments.form.email': 'Email',
     'apartments.form.checkin': 'Check-in',
@@ -247,13 +284,20 @@ const I18N = {
     'apartments.checkout': 'Check-out',
     'apartments.guests': 'Guests',
     'apartments.availableTitle': 'Available apartments',
-    'rentacar.introTitle': 'Rent-a-car search',
-    'rentacar.introText': 'Choose location and dates, then reserve a vehicle directly from the results.',
-    'rentacar.pickupLocation': 'Pickup location',
+    'rentacar.introTitle': 'Rent-a-car categories',
+    'rentacar.introText': 'Choose location and dates, then reserve a vehicle category with seasonal pricing.',
+    'rentacar.pickupLocation': 'Pickup method',
+    'rentacar.pickupAtOffice': 'At office location',
+    'rentacar.pickupDelivery': 'Delivery',
+    'rentacar.deliveryNotice': 'If delivery is selected, additional delivery charges may apply.',
     'rentacar.pickupDate': 'Pickup date',
     'rentacar.dropoffDate': 'Drop-off date',
     'rentacar.drivers': 'Drivers',
-    'rentacar.available': 'Available vehicles',
+    'rentacar.available': 'Available categories',
+    'rentacar.dateSelection': 'Date selection',
+    'rentacar.zoneTitle': 'Pickup and delivery zone',
+    'rentacar.zoneText': 'The base location is shown on the map with a marked 5 km service radius.',
+    'rentacar.deliveryOutsideNotice': 'Delivery outside the marked 5 km radius is charged additionally.',
     'reserve.introTitle': 'Guest / visitor',
     'reserve.introText': 'Online check-in, eVisitor registration, and automatic reservation confirmation email.',
     'reserve.quickBookingTitle': 'Quick accommodation reservation',
@@ -337,16 +381,46 @@ const I18N = {
     'car.form.dropoff': 'Drop-off date',
     'car.form.location': 'Location',
     'car.form.vehicleType': 'Vehicle type',
+    'car.form.total': 'Total price',
+    'car.form.deliveryNotice': 'Note: delivery may include additional delivery charges.',
     'car.form.confirm': 'Confirm vehicle reservation',
+    'car.previewOnly': 'No email was sent. This is only a message preview.',
+    'car.mailPreview.title': 'Confirmation email preview',
+    'car.mailPreview.subtitle': 'This is how the message would look after sending the inquiry.',
+    'car.mailPreview.close': 'Close',
+    'car.mailPreview.subject': 'Subject',
+    'car.mailPreview.to': 'To',
+    'car.mailPreview.body': 'Message body',
+    'car.mailPreview.subjectValue': 'Mljet4You rent a car inquiry - {vehicle}',
+    'car.mailPreview.greeting': 'Hello {name},',
+    'car.mailPreview.line1': 'we have received your inquiry for the {vehicle} vehicle category.',
+    'car.mailPreview.line2': 'Rental period: {pickup} to {dropoff} ({days} days).',
+    'car.mailPreview.line3': 'Pickup method: {location}.',
+    'car.mailPreview.line4': 'Estimated price: {total} ({perDay} per day).',
+    'car.mailPreview.line5': 'Delivery may include additional delivery charges.',
+    'car.mailPreview.line6': 'We will contact you soon with final confirmation and pickup details.',
     'car.sending': 'Sending vehicle reservation...',
     'car.reservationSuccess': 'Reservation successful: {id}',
     'car.rating': 'Rating {rating}',
     'car.reviews': '{count} reviews',
     'car.seatsCategory': '{count} seats • Category: {type}',
+    'car.luggage': '{count} luggage',
+    'car.seasonLabel': 'Season',
+    'car.tariffLabel': 'Tariff',
+    'car.tierShort': '1-3 days',
+    'car.tierMid': '4-6 days',
+    'car.tierLong': '7+ days',
+    'car.seasonLow': 'Low (Jan-Apr, Nov-Dec)',
+    'car.seasonShoulder': 'Shoulder (May, Oct)',
+    'car.seasonWarm': 'Warm (Jun, Sep)',
+    'car.seasonHigh': 'High (Jul, Aug)',
+    'car.seasonRates': 'Rate card 1-3 / 4-6 / 7+ days',
     'car.available': 'Available',
     'car.unavailableDates': 'Unavailable for selected dates',
     'car.days': '{count} days',
     'car.pricePerDay': 'Price per day',
+    'car.priceForDates': 'Price for selected dates: {pickup} - {dropoff}',
+    'car.totalForDates': 'Total price for selected dates: {total}',
     'car.perDaySuffix': '/ day',
     'car.book': 'Reserve vehicle',
     'car.hideForm': 'Hide form',
@@ -354,8 +428,8 @@ const I18N = {
     'car.invalidDates': 'Drop-off date must be after pickup date.',
     'car.zeroResults': 'Found 0 vehicles',
     'car.fixDates': 'Please correct the dates and try again.',
-    'car.foundResults': 'Found {count} vehicles',
-    'car.summary': '{available} available in {location} for the selected period.',
+    'car.foundResults': 'Found {count} categories',
+    'car.summary': '{available} categories available for the selected period.',
     'apartments.form.name': 'Full name',
     'apartments.form.email': 'Email',
     'apartments.form.checkin': 'Check-in',
@@ -685,61 +759,139 @@ if (carListingsContainer) {
   const carSearchForm = document.getElementById('carSearchForm');
   const carResultsTitle = document.getElementById('carResultsTitle');
   const carResultsSummary = document.getElementById('carResultsSummary');
+  const carDeliveryNotice = document.getElementById('carDeliveryNotice');
+  const carGlobalPickup = document.getElementById('carGlobalPickup');
+  const carGlobalDropoff = document.getElementById('carGlobalDropoff');
+  const rentacarMap = document.getElementById('rentacarMap');
+  const carCardsById = new Map();
+  let carCardsRendered = false;
 
   const CAR_CATALOG = [
     {
       id: 'car-1',
-      name: 'City Compact',
-      imageUrl: 'https://picsum.photos/seed/car1/800/560',
-      carType: 'economy',
+      name: 'Mini',
+      imageUrl: 'https://picsum.photos/seed/car-mini/800/560',
+      carType: 'mini',
       seats: 4,
+      doors: 5,
+      ac: true,
       transmission: 'Manual',
       fuel: 'Benzin',
-      pricePerDay: 39,
-      rating: 8.7,
+      luggage: 1,
+      rating: 8.8,
       reviewCount: 133,
-      imageLabel: 'Prakticni gradski model',
+      imageLabel: 'Mini kategorija',
       perks: ['Neogranicena kilometraza', 'Klima uredaj', 'Bluetooth'],
-      description: 'Idealan za gradsku voznju i kratke izlete.',
+      description: 'Najpovoljnija opcija za gradske voznje i kratke relacije.',
+      seasonalRates: {
+        low: { short: 40, mid: 35, long: 30 },
+        shoulder: { short: 45, mid: 40, long: 35 },
+        warm: { short: 55, mid: 50, long: 45 },
+        high: { short: 75, mid: 70, long: 65 },
+      },
     },
     {
       id: 'car-2',
-      name: 'Coastal SUV',
-      imageUrl: 'https://picsum.photos/seed/car2/800/560',
-      carType: 'suv',
+      name: 'Small',
+      imageUrl: 'https://picsum.photos/seed/car-small/800/560',
+      carType: 'small',
       seats: 5,
-      transmission: 'Automatic',
-      fuel: 'Dizel',
-      pricePerDay: 67,
+      doors: 5,
+      ac: true,
+      transmission: 'Manual / Automatic',
+      fuel: 'Benzin',
+      luggage: 2,
       rating: 9.0,
       reviewCount: 101,
-      imageLabel: 'Komfor za duge relacije',
-      perks: ['Veliki prtljaznik', 'Kasko ukljucen', 'Tempomat'],
-      description: 'Udoban SUV za obitelji i duza putovanja.',
+      imageLabel: 'Small kategorija',
+      perks: ['Jednostavno parkiranje', 'Klima uredaj', 'Niska potrosnja'],
+      description: 'Dobra ravnoteza cijene i udobnosti za dnevne ture po otoku.',
+      seasonalRates: {
+        low: { short: 50, mid: 45, long: 40 },
+        shoulder: { short: 55, mid: 50, long: 45 },
+        warm: { short: 65, mid: 60, long: 55 },
+        high: { short: 80, mid: 75, long: 70 },
+      },
     },
     {
       id: 'car-3',
-      name: 'Premium Sedan',
-      imageUrl: 'https://picsum.photos/seed/car3/800/560',
-      carType: 'compact',
+      name: 'Medium',
+      imageUrl: 'https://picsum.photos/seed/car-medium/800/560',
+      carType: 'medium',
       seats: 5,
+      doors: 5,
+      ac: true,
       transmission: 'Automatic',
-      fuel: 'Hibrid',
-      pricePerDay: 82,
+      fuel: 'Dizel / Hibrid',
+      luggage: 3,
       rating: 9.3,
       reviewCount: 86,
-      imageLabel: 'Poslovni i premium dojam',
-      perks: ['Navigacija', 'Parking senzori', 'Priority podrska'],
-      description: 'Elegantna limuzina za udobnu i tihu voznju.',
+      imageLabel: 'Medium kategorija',
+      perks: ['Prostrana unutrasnjost', 'Navigacija', 'Parking senzori'],
+      description: 'Obiteljska kategorija za duze voznje i vise prtljage.',
+      seasonalRates: {
+        low: { short: 60, mid: 55, long: 50 },
+        shoulder: { short: 65, mid: 60, long: 55 },
+        warm: { short: 75, mid: 70, long: 65 },
+        high: { short: 95, mid: 90, long: 85 },
+      },
+    },
+    {
+      id: 'car-4',
+      name: 'Comfort',
+      imageUrl: 'https://picsum.photos/seed/car-comfort/800/560',
+      carType: 'comfort',
+      seats: 5,
+      doors: 5,
+      ac: true,
+      transmission: 'Automatic',
+      fuel: 'Dizel / Hibrid',
+      luggage: 4,
+      rating: 9.4,
+      reviewCount: 72,
+      imageLabel: 'Comfort kategorija',
+      perks: ['Veca udobnost', 'Napredni sigurnosni paket', 'Prioritetna podrska'],
+      description: 'Visa klasa udobnosti za goste koji traze dodatni komfor.',
+      seasonalRates: {
+        low: { short: 70, mid: 65, long: 60 },
+        shoulder: { short: 75, mid: 70, long: 65 },
+        warm: { short: 85, mid: 80, long: 75 },
+        high: { short: 105, mid: 100, long: 95 },
+      },
+    },
+    {
+      id: 'car-5',
+      name: 'Premium',
+      imageUrl: 'https://picsum.photos/seed/car-premium/800/560',
+      carType: 'premium',
+      seats: 5,
+      doors: 5,
+      ac: true,
+      transmission: 'Automatic',
+      fuel: 'Hibrid / Electric',
+      luggage: 4,
+      rating: 9.5,
+      reviewCount: 58,
+      imageLabel: 'Premium kategorija',
+      perks: ['Top oprema', 'Mogucnost full osiguranja', 'VIP preuzimanje'],
+      description: 'Najvisa kategorija za maksimalnu udobnost i premium iskustvo.',
+      seasonalRates: {
+        low: { short: 90, mid: 85, long: 80 },
+        shoulder: { short: 100, mid: 95, long: 90 },
+        warm: { short: 120, mid: 115, long: 110 },
+        high: { short: 150, mid: 140, long: 130 },
+      },
     },
   ];
 
-  const carState = {
-    bookings: [],
-  };
-
   function formatMoney(amount) {
     return new Intl.NumberFormat(t('common.locale'), { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount);
+  }
+
+  function formatDisplayDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return new Intl.DateTimeFormat(t('common.monthLocale'), { day: '2-digit', month: 'short', year: 'numeric' }).format(date);
   }
 
   function diffDays(pickup, dropoff) {
@@ -749,12 +901,51 @@ if (carListingsContainer) {
     return Math.round((end - start) / (1000 * 60 * 60 * 24));
   }
 
-  function bookingOverlaps(booking, pickup, dropoff) {
-    const requestedStart = new Date(pickup);
-    const requestedEnd = new Date(dropoff);
-    const bookingStart = new Date(booking.pickup);
-    const bookingEnd = new Date(booking.dropoff);
-    return requestedStart < bookingEnd && requestedEnd > bookingStart;
+  function getCarSeasonKey(pickup) {
+    const date = new Date(pickup);
+    const month = Number.isNaN(date.getTime()) ? 6 : date.getMonth() + 1;
+    if (month === 7 || month === 8) return 'high';
+    if (month === 6 || month === 9) return 'warm';
+    if (month === 5 || month === 10) return 'shoulder';
+    return 'low';
+  }
+
+  function getCarTierKey(days) {
+    if (days <= 3) return 'short';
+    if (days <= 6) return 'mid';
+    return 'long';
+  }
+
+  function getSeasonLabelKey(seasonKey) {
+    if (seasonKey === 'high') return 'car.seasonHigh';
+    if (seasonKey === 'warm') return 'car.seasonWarm';
+    if (seasonKey === 'shoulder') return 'car.seasonShoulder';
+    return 'car.seasonLow';
+  }
+
+  function getTierLabelKey(tierKey) {
+    if (tierKey === 'long') return 'car.tierLong';
+    if (tierKey === 'mid') return 'car.tierMid';
+    return 'car.tierShort';
+  }
+
+  function getCarPricing(vehicle, pickup, days) {
+    const seasonKey = getCarSeasonKey(pickup);
+    const tierKey = getCarTierKey(days || 1);
+    const seasonRates = vehicle.seasonalRates[seasonKey] || vehicle.seasonalRates.warm;
+    return {
+      seasonKey,
+      tierKey,
+      seasonRates,
+      pricePerDay: seasonRates[tierKey],
+    };
+  }
+
+  function getSelectedDatePriceLabel(filters) {
+    return t('car.priceForDates', {
+      pickup: formatDisplayDate(filters.pickup),
+      dropoff: formatDisplayDate(filters.dropoff),
+    });
   }
 
   function setDefaultCarDates() {
@@ -763,32 +954,134 @@ if (carListingsContainer) {
     tomorrow.setDate(now.getDate() + 1);
     const dayAfter = new Date(now);
     dayAfter.setDate(now.getDate() + 3);
-    carSearchForm.elements.pickup.value = formatDate(tomorrow);
-    carSearchForm.elements.dropoff.value = formatDate(dayAfter);
+    if (carSearchForm) {
+      carSearchForm.elements.pickup.value = formatDate(tomorrow);
+      carSearchForm.elements.dropoff.value = formatDate(dayAfter);
+    }
+    if (carGlobalPickup && !carGlobalPickup.value) carGlobalPickup.value = formatDate(tomorrow);
+    if (carGlobalDropoff && !carGlobalDropoff.value) carGlobalDropoff.value = formatDate(dayAfter);
   }
 
   function collectCarFilters() {
+    if (carGlobalPickup && carGlobalDropoff) {
+      return {
+        location: 'At office location',
+        pickup: String(carGlobalPickup.value || ''),
+        dropoff: String(carGlobalDropoff.value || ''),
+        drivers: 1,
+      };
+    }
+
+    if (!carSearchForm) {
+      const now = new Date();
+      const pickupDate = new Date(now);
+      pickupDate.setDate(now.getDate() + 1);
+      const dropoffDate = new Date(now);
+      dropoffDate.setDate(now.getDate() + 4);
+      return {
+        location: 'At office location',
+        pickup: formatDate(pickupDate),
+        dropoff: formatDate(dropoffDate),
+        drivers: 1,
+      };
+    }
     const formData = new FormData(carSearchForm);
     return {
-      location: String(formData.get('location') || 'Zagreb'),
+      location: String(formData.get('location') || 'At office location'),
       pickup: String(formData.get('pickup') || ''),
       dropoff: String(formData.get('dropoff') || ''),
       drivers: Number(formData.get('drivers') || 1),
     };
   }
 
-  function isVehicleAvailable(vehicle, filters) {
-    if (!filters.pickup || !filters.dropoff) return true;
-    return !carState.bookings.some((booking) => {
-      if (booking.carType !== vehicle.carType) return false;
-      if (booking.location !== filters.location) return false;
-      return bookingOverlaps(booking, filters.pickup, filters.dropoff);
+  function syncCarDeliveryNotice() {
+    if (!carDeliveryNotice || !carSearchForm) return;
+    carDeliveryNotice.hidden = carSearchForm.elements.location.value !== 'Delivery';
+  }
+
+  function showCarMailPreview(payload) {
+    const existing = document.querySelector('.mail-preview-modal-backdrop');
+    if (existing) existing.remove();
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'mail-preview-modal-backdrop';
+    backdrop.innerHTML = `
+      <div class="mail-preview-modal card-plain" role="dialog" aria-modal="true" aria-label="${t('car.mailPreview.title')}">
+        <div class="mail-preview-header">
+          <div>
+            <h3>${t('car.mailPreview.title')}</h3>
+            <p>${t('car.mailPreview.subtitle')}</p>
+          </div>
+          <button type="button" class="btn btn-outline mail-preview-close">${t('car.mailPreview.close')}</button>
+        </div>
+        <div class="mail-preview-section">
+          <strong>${t('car.mailPreview.to')}</strong>
+          <p>${payload.email}</p>
+        </div>
+        <div class="mail-preview-section">
+          <strong>${t('car.mailPreview.subject')}</strong>
+          <p>${t('car.mailPreview.subjectValue', { vehicle: payload.vehicle })}</p>
+        </div>
+        <div class="mail-preview-section">
+          <strong>${t('car.mailPreview.body')}</strong>
+          <div class="mail-preview-body">
+            <p>${t('car.mailPreview.greeting', { name: payload.name })}</p>
+            <p>${t('car.mailPreview.line1', { vehicle: payload.vehicle })}</p>
+            <p>${t('car.mailPreview.line2', { pickup: payload.pickup, dropoff: payload.dropoff, days: payload.days })}</p>
+            <p>${t('car.mailPreview.line3', { location: payload.locationLabel })}</p>
+            <p>${t('car.mailPreview.line4', { total: payload.total, perDay: payload.perDay })}</p>
+            ${payload.location === 'Delivery' ? `<p>${t('car.mailPreview.line5')}</p>` : ''}
+            <p>${t('car.mailPreview.line6')}</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    function closeModal() {
+      backdrop.remove();
+      document.removeEventListener('keydown', onKeyDown);
+    }
+
+    function onKeyDown(event) {
+      if (event.key === 'Escape') closeModal();
+    }
+
+    backdrop.addEventListener('click', (event) => {
+      if (event.target === backdrop) closeModal();
     });
+    backdrop.querySelector('.mail-preview-close').addEventListener('click', closeModal);
+    document.addEventListener('keydown', onKeyDown);
+    document.body.appendChild(backdrop);
+  }
+
+  function initRentacarMap() {
+    if (!rentacarMap || typeof window.L === 'undefined') return;
+    const lat = 42.739494144005896;
+    const lng = 17.62069531478174;
+    const map = window.L.map(rentacarMap, { scrollWheelZoom: false }).setView([lat, lng], 12);
+
+    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
+
+    window.L.marker([lat, lng]).addTo(map);
+    window.L.circle([lat, lng], {
+      radius: 5000,
+      color: '#1f6f8b',
+      weight: 2,
+      fillColor: '#1f6f8b',
+      fillOpacity: 0.12,
+    }).addTo(map);
   }
 
   function createCarBookingForm(vehicle, filters) {
     const wrapper = document.createElement('div');
     wrapper.className = 'listing-booking-box';
+
+    const initialDays = diffDays(filters.pickup, filters.dropoff);
+    const initialPricing = getCarPricing(vehicle, filters.pickup, initialDays);
+    const initialTotal = initialDays > 0 ? initialPricing.pricePerDay * initialDays : initialPricing.pricePerDay;
 
     const form = document.createElement('form');
     form.className = 'apt-book-form';
@@ -798,84 +1091,209 @@ if (carListingsContainer) {
       <label>${t('car.form.pickup')}<input name="pickup" type="date" value="${filters.pickup}" required></label>
       <label>${t('car.form.dropoff')}<input name="dropoff" type="date" value="${filters.dropoff}" required></label>
       <input type="hidden" name="carType" value="${vehicle.carType}">
-      <input type="hidden" name="location" value="${filters.location}">
-      <label>${t('car.form.location')}<input value="${filters.location}" readonly></label>
+      <label>${t('car.form.location')}
+        <select name="location" required>
+          <option value="At office location" ${filters.location === 'At office location' ? 'selected' : ''}>${t('rentacar.pickupAtOffice')}</option>
+          <option value="Delivery" ${filters.location === 'Delivery' ? 'selected' : ''}>${t('rentacar.pickupDelivery')}</option>
+        </select>
+      </label>
       <label>${t('car.form.vehicleType')}<input value="${vehicle.name}" readonly></label>
+      <p class="muted car-booking-total">${t('car.form.total')}: ${formatMoney(initialTotal)} (${formatMoney(initialPricing.pricePerDay)} ${t('car.perDaySuffix')})</p>
+      <p class="muted car-delivery-note" ${filters.location === 'Delivery' ? '' : 'hidden'}>${t('car.form.deliveryNotice')}</p>
       <button type="submit" class="btn">${t('car.form.confirm')}</button>
       <pre class="apt-output"></pre>
     `;
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const out = form.querySelector('.apt-output');
-      out.textContent = t('car.sending');
-      try {
-        const body = formDataToObject(form);
-        const payload = await postJson('/api/rentacar/book', body);
-        out.textContent = t('car.reservationSuccess', { id: payload.reservation.id });
-        await loadCarBookings();
-        renderCars();
-      } catch (error) {
-        out.textContent = `${t('common.errorPrefix')}: ${error.message}`;
+    function updateBookingSummary() {
+      const pickup = form.elements.pickup.value;
+      const dropoff = form.elements.dropoff.value;
+      const location = form.elements.location.value;
+      const days = diffDays(pickup, dropoff);
+      const pricing = getCarPricing(vehicle, pickup, days);
+      const total = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
+      const totalNode = form.querySelector('.car-booking-total');
+      const deliveryNote = form.querySelector('.car-delivery-note');
+
+      totalNode.textContent = `${t('car.form.total')}: ${formatMoney(total)} (${formatMoney(pricing.pricePerDay)} ${t('car.perDaySuffix')})`;
+      deliveryNote.hidden = location !== 'Delivery';
+    }
+
+    ['pickup', 'dropoff', 'location'].forEach((fieldName) => {
+      const input = form.elements[fieldName];
+      if (!input) return;
+      input.addEventListener('change', updateBookingSummary);
+      if (fieldName === 'pickup' || fieldName === 'dropoff') {
+        input.addEventListener('change', () => {
+          if (carGlobalPickup && carGlobalDropoff) {
+            carGlobalPickup.value = form.elements.pickup.value;
+            carGlobalDropoff.value = form.elements.dropoff.value;
+          }
+          renderCars();
+        });
       }
     });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const out = form.querySelector('.apt-output');
+      const pickup = form.elements.pickup.value;
+      const dropoff = form.elements.dropoff.value;
+      const location = form.elements.location.value;
+      const days = diffDays(pickup, dropoff);
+      const pricing = getCarPricing(vehicle, pickup, days);
+      const total = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
+
+      showCarMailPreview({
+        name: form.elements.name.value,
+        email: form.elements.email.value,
+        vehicle: vehicle.name,
+        pickup: formatDisplayDate(pickup),
+        dropoff: formatDisplayDate(dropoff),
+        days,
+        location,
+        locationLabel: location === 'Delivery' ? t('rentacar.pickupDelivery') : t('rentacar.pickupAtOffice'),
+        total: formatMoney(total),
+        perDay: `${formatMoney(pricing.pricePerDay)} ${t('car.perDaySuffix')}`,
+      });
+      out.textContent = t('car.previewOnly');
+    });
+
+    updateBookingSummary();
+
+    wrapper.syncDatesFromFilters = (nextFilters) => {
+      if (form.elements.pickup.value !== nextFilters.pickup) {
+        form.elements.pickup.value = nextFilters.pickup;
+      }
+      if (form.elements.dropoff.value !== nextFilters.dropoff) {
+        form.elements.dropoff.value = nextFilters.dropoff;
+      }
+      updateBookingSummary();
+    };
 
     wrapper.appendChild(form);
     return wrapper;
   }
 
   function buildVehicleCard(vehicle, filters, days) {
-    const available = isVehicleAvailable(vehicle, filters);
-    const totalPrice = days > 0 ? vehicle.pricePerDay * days : vehicle.pricePerDay;
+    const pricing = getCarPricing(vehicle, filters.pickup, days);
+    const totalPrice = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
+    const seasonOrder = ['low', 'shoulder', 'warm', 'high'];
+    const seasonRows = seasonOrder.map((seasonKey) => {
+      const rates = vehicle.seasonalRates[seasonKey] || vehicle.seasonalRates.warm;
+      const rowClass = seasonKey === pricing.seasonKey ? ' class="active"' : '';
+      return `
+        <tr data-season-key="${seasonKey}"${rowClass}>
+          <th>${t(getSeasonLabelKey(seasonKey))}</th>
+          <td>${formatMoney(rates.short)}</td>
+          <td>${formatMoney(rates.mid)}</td>
+          <td>${formatMoney(rates.long)}</td>
+        </tr>
+      `;
+    }).join('');
 
     const card = document.createElement('article');
-    card.className = 'listing-card card-plain fade-up';
+    card.className = 'listing-card car-listing-card card-plain fade-up';
+    card.dataset.vehicleId = vehicle.id;
     card.innerHTML = `
       <div class="listing-image car-image" aria-hidden="true">
         <img class="listing-photo" src="${vehicle.imageUrl || ''}" alt="" loading="lazy" onerror="this.style.display='none'">
         <span>${vehicle.imageLabel}</span>
       </div>
       <div class="listing-main">
-        <p class="listing-location">${filters.location} • ${vehicle.transmission} • ${vehicle.fuel}</p>
         <h3>${vehicle.name}</h3>
         <p class="listing-description">${vehicle.description}</p>
-        <p class="listing-perks">${vehicle.perks.join(' • ')}</p>
-        <p class="listing-type">${t('car.seatsCategory', { count: vehicle.seats, type: vehicle.carType.toUpperCase() })}</p>
-      </div>
-      <div class="listing-side">
-        <div class="listing-rating-wrap">
-          <strong>${t('car.rating', { rating: vehicle.rating })}</strong>
-          <span>${t('car.reviews', { count: vehicle.reviewCount })}</span>
+        <div class="car-specs-grid">
+          <span class="car-spec-item">${vehicle.seats} seats</span>
+          <span class="car-spec-item">${vehicle.doors} doors</span>
+          <span class="car-spec-item">${vehicle.ac ? 'AC' : 'No AC'}</span>
+          <span class="car-spec-item">${vehicle.transmission}</span>
         </div>
         <div class="listing-price-wrap">
-          <p class="listing-status ${available ? 'ok' : 'bad'}">${available ? t('car.available') : t('car.unavailableDates')}</p>
-          <p class="listing-total">${formatMoney(totalPrice)}</p>
-          <p class="muted">${days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay')} • ${formatMoney(vehicle.pricePerDay)} ${t('car.perDaySuffix')}</p>
+          <p class="listing-total js-car-total">${t('car.totalForDates', { total: formatMoney(totalPrice) })}</p>
+          <p class="muted js-car-rate">${days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay')} • ${formatMoney(pricing.pricePerDay)} ${t('car.perDaySuffix')}</p>
+          <p class="muted js-car-season">${t('car.seasonLabel')}: ${t(getSeasonLabelKey(pricing.seasonKey))} • ${t('car.tariffLabel')}: ${t(getTierLabelKey(pricing.tierKey))}</p>
+          <p class="muted js-car-selected-dates">${getSelectedDatePriceLabel(filters)}</p>
         </div>
-        <button class="btn open-booking-btn" ${available ? '' : 'disabled'}>
-          ${available ? t('car.book') : t('car.notAvailable')}
+        <div class="car-tariff-table-wrap">
+          <table class="car-tariff-table" aria-label="Tarife najma">
+            <thead>
+              <tr>
+                <th>${t('car.seasonLabel')}</th>
+                <th>${t('car.tierShort')}</th>
+                <th>${t('car.tierMid')}</th>
+                <th>${t('car.tierLong')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${seasonRows}
+            </tbody>
+          </table>
+        </div>
+        <button class="btn open-booking-btn">
+          ${t('car.book')}
         </button>
       </div>
     `;
 
-    if (available) {
-      const toggleButton = card.querySelector('.open-booking-btn');
-      const bookingBox = createCarBookingForm(vehicle, filters);
-      bookingBox.hidden = true;
-      card.appendChild(bookingBox);
-      toggleButton.addEventListener('click', () => {
-        bookingBox.hidden = !bookingBox.hidden;
-        toggleButton.textContent = bookingBox.hidden ? t('car.book') : t('car.hideForm');
-      });
-    }
+    const toggleButton = card.querySelector('.open-booking-btn');
+    const bookingBox = createCarBookingForm(vehicle, filters);
+    bookingBox.hidden = true;
+    card.appendChild(bookingBox);
+    toggleButton.addEventListener('click', () => {
+      bookingBox.hidden = !bookingBox.hidden;
+      toggleButton.textContent = bookingBox.hidden ? t('car.book') : t('car.hideForm');
+    });
 
-    return { card, available };
+    return { card, available: true };
   }
 
-  async function loadCarBookings() {
-    const response = await fetch('/api/rentacar/bookings');
-    const payload = await response.json();
-    carState.bookings = payload.bookings || [];
+  function updateCarCardDynamicContent(card, vehicle, filters, days) {
+    const pricing = getCarPricing(vehicle, filters.pickup, days);
+    const totalPrice = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
+
+    const totalNode = card.querySelector('.js-car-total');
+    if (totalNode) totalNode.textContent = t('car.totalForDates', { total: formatMoney(totalPrice) });
+
+    const rateNode = card.querySelector('.js-car-rate');
+    if (rateNode) {
+      rateNode.textContent = `${days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay')} • ${formatMoney(pricing.pricePerDay)} ${t('car.perDaySuffix')}`;
+    }
+
+    const seasonNode = card.querySelector('.js-car-season');
+    if (seasonNode) {
+      seasonNode.textContent = `${t('car.seasonLabel')}: ${t(getSeasonLabelKey(pricing.seasonKey))} • ${t('car.tariffLabel')}: ${t(getTierLabelKey(pricing.tierKey))}`;
+    }
+
+    const selectedDatesNode = card.querySelector('.js-car-selected-dates');
+    if (selectedDatesNode) selectedDatesNode.textContent = getSelectedDatePriceLabel(filters);
+
+    card.querySelectorAll('tbody tr[data-season-key]').forEach((row) => {
+      row.classList.toggle('active', row.dataset.seasonKey === pricing.seasonKey);
+    });
+
+    const bookingBox = card.querySelector('.listing-booking-box');
+    if (bookingBox && typeof bookingBox.syncDatesFromFilters === 'function') {
+      bookingBox.syncDatesFromFilters(filters);
+    }
+  }
+
+  function buildCarsOnce(filters, days) {
+    carListingsContainer.innerHTML = '';
+    carCardsById.clear();
+
+    const sortedVehicles = [...CAR_CATALOG].sort((a, b) => {
+      const aPrice = getCarPricing(a, filters.pickup, days).pricePerDay;
+      const bPrice = getCarPricing(b, filters.pickup, days).pricePerDay;
+      return aPrice - bPrice;
+    });
+
+    sortedVehicles.forEach((vehicle) => {
+      const { card } = buildVehicleCard(vehicle, filters, days);
+      carCardsById.set(vehicle.id, card);
+      carListingsContainer.appendChild(card);
+    });
+
+    carCardsRendered = true;
   }
 
   function renderCars() {
@@ -883,38 +1301,59 @@ if (carListingsContainer) {
     const days = diffDays(filters.pickup, filters.dropoff);
 
     if (filters.pickup && filters.dropoff && days <= 0) {
+      carCardsRendered = false;
+      carCardsById.clear();
       carListingsContainer.innerHTML = `<p class="card-plain">${t('car.invalidDates')}</p>`;
       carResultsTitle.textContent = t('car.zeroResults');
       carResultsSummary.textContent = t('car.fixDates');
       return;
     }
 
-    carListingsContainer.innerHTML = '';
-    let availableCount = 0;
+    if (!carCardsRendered || carCardsById.size !== CAR_CATALOG.length) {
+      buildCarsOnce(filters, days);
+    }
 
-    const sortedVehicles = [...CAR_CATALOG].sort((a, b) => a.pricePerDay - b.pricePerDay);
-    sortedVehicles.forEach((vehicle) => {
-      const { card, available } = buildVehicleCard(vehicle, filters, days);
-      if (available) availableCount += 1;
-      carListingsContainer.appendChild(card);
+    CAR_CATALOG.forEach((vehicle) => {
+      const card = carCardsById.get(vehicle.id);
+      if (!card) return;
+      updateCarCardDynamicContent(card, vehicle, filters, days);
     });
 
-    carResultsTitle.textContent = t('car.foundResults', { count: CAR_CATALOG.length });
-    carResultsSummary.textContent = t('car.summary', { available: availableCount, location: filters.location });
+    const availableCount = carCardsById.size;
+
+    if (carResultsTitle) carResultsTitle.textContent = t('rentacar.dateSelection');
+    carResultsSummary.textContent = '';
   }
 
   if (carSearchForm) {
     setDefaultCarDates();
+    syncCarDeliveryNotice();
+    if (carSearchForm.elements.location) {
+      carSearchForm.elements.location.addEventListener('change', () => {
+        syncCarDeliveryNotice();
+        renderCars();
+      });
+    }
     carSearchForm.addEventListener('submit', (event) => {
       event.preventDefault();
+      syncCarDeliveryNotice();
       renderCars();
+    });
+  }
+
+  if (carGlobalPickup && carGlobalDropoff) {
+    setDefaultCarDates();
+    [carGlobalPickup, carGlobalDropoff].forEach((input) => {
+      input.addEventListener('change', () => {
+        renderCars();
+      });
     });
   }
 
   (async () => {
     carListingsContainer.textContent = t('common.loadingVehicles');
     try {
-      await loadCarBookings();
+      initRentacarMap();
       renderCars();
     } catch (error) {
       carListingsContainer.textContent = `${t('common.errorPrefix')}: ${error.message}`;

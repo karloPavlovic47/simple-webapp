@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body data-title-key="title.rentacar">
@@ -31,7 +32,6 @@
         <a href="/activities.html" data-i18n="nav.activities">Aktivnosti</a>
         <a href="/faq.html" data-i18n="nav.faq">FAQ i info guide</a>
         <a href="/directions.html" data-i18n="nav.directions">Kako do nas</a>
-        <a href="/proposal.html" data-i18n="nav.proposal">Prijedlog suradnje</a>
         <a href="/about.html" data-i18n="nav.about">O nama</a>
         <div class="lang-flags" role="group" aria-label="Language selector" data-i18n-aria-label="common.languageSelector">
           <button type="button" class="lang-flag" data-lang="hr" aria-label="Hrvatski" data-i18n-aria-label="common.languageCroatian"><img class="flag-icon" src="https://flagcdn.com/24x18/hr.png" width="24" height="18" alt="" aria-hidden="true"></button>
@@ -45,34 +45,25 @@
       <p data-i18n="rentacar.introText">Odaberi lokaciju i termine te rezerviraj vozilo direktno iz rezultata.</p>
     </section>
 
-    <section class="booking-search card-plain fade-up">
-      <form id="carSearchForm" class="booking-search-grid">
-        <label>
-          <span data-i18n="rentacar.pickupLocation">Lokacija preuzimanja</span>
-          <select name="location" required>
-            <option value="Split">Split</option>
-            <option value="Dubrovnik">Dubrovnik</option>
-            <option value="Zagreb" selected>Zagreb</option>
-          </select>
-        </label>
-        <label>
-          <span data-i18n="rentacar.pickupDate">Datum preuzimanja</span>
-          <input name="pickup" type="date" required />
-        </label>
-        <label>
-          <span data-i18n="rentacar.dropoffDate">Datum povrata</span>
-          <input name="dropoff" type="date" required />
-        </label>
-        <label>
-          <span data-i18n="rentacar.drivers">Vozaca</span>
-          <input name="drivers" type="number" min="1" max="2" value="1" required />
-        </label>
-        <button type="submit" class="btn booking-search-btn" data-i18n="common.search">Pretrazi</button>
-      </form>
+    <section class="card-plain fade-up rentacar-zone-section">
+      <h2 data-i18n="rentacar.zoneTitle">Zona preuzimanja i dostave</h2>
+      <p data-i18n="rentacar.zoneText">Bazna lokacija je prikazana na mapi, s oznacenim radijusom usluge od 5 km.</p>
+      <div id="rentacarMap" class="rentacar-map" aria-label="Rent a car mapa"></div>
+      <p class="muted" data-i18n="rentacar.deliveryOutsideNotice">Dostava izvan oznacenog radijusa od 5 km dodatno se naplacuje.</p>
     </section>
 
     <section class="results-meta fade-up">
-      <h2 id="carResultsTitle" data-i18n="rentacar.available">Dostupna vozila</h2>
+      <h2 id="carResultsTitle" data-i18n="rentacar.dateSelection">Selekcija datuma</h2>
+      <div class="rentacar-date-controls">
+        <label>
+          <span data-i18n="rentacar.pickupDate">Datum preuzimanja</span>
+          <input id="carGlobalPickup" type="date" />
+        </label>
+        <label>
+          <span data-i18n="rentacar.dropoffDate">Datum povrata</span>
+          <input id="carGlobalDropoff" type="date" />
+        </label>
+      </div>
       <p id="carResultsSummary" class="muted" data-i18n="common.loadingResults">Ucitavanje rezultata...</p>
     </section>
 
@@ -102,6 +93,7 @@
     </aside>
 
   </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/app.js"></script>
 </body>
 </html>

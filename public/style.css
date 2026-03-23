@@ -593,6 +593,24 @@ h3 {
 	color: var(--ink);
 }
 
+.rentacar-date-controls {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	align-items: end;
+}
+
+.rentacar-date-controls label {
+	display: grid;
+	gap: 0.25rem;
+	font-size: 0.86rem;
+	color: var(--ink-soft);
+}
+
+.rentacar-date-controls input {
+	min-width: 170px;
+}
+
 .results-meta p {
 	margin: 0;
 	color: var(--ink-soft);
@@ -601,6 +619,27 @@ h3 {
 .booking-results {
 	display: grid;
 	gap: 0.9rem;
+}
+
+.rentacar-zone-section {
+	margin-top: 0.95rem;
+	display: grid;
+	gap: 0.6rem;
+}
+
+.rentacar-zone-section h2 {
+	margin: 0;
+	font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+}
+
+.rentacar-zone-section p {
+	margin: 0;
+}
+
+.rentacar-map {
+	height: 320px;
+	border: 1px solid rgba(17, 19, 25, 0.16);
+	background: #eef3fa;
 }
 
 .panel-stack {
@@ -747,6 +786,77 @@ pre {
 	display: inline-block;
 }
 
+.car-listing-card {
+	grid-template-columns: 240px 1fr;
+}
+
+.car-specs-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	margin: 0.2rem 0 0.55rem;
+}
+
+.car-spec-item {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.24rem 0.5rem;
+	font-size: 0.84rem;
+	font-weight: 700;
+	border: 1px solid rgba(31, 111, 139, 0.25);
+	background: rgba(31, 111, 139, 0.08);
+	color: var(--teal-deep);
+}
+
+.car-listing-card .listing-price-wrap {
+	display: grid;
+	gap: 0.2rem;
+	margin-top: 0.2rem;
+}
+
+.car-listing-card .open-booking-btn {
+	margin-top: 0.45rem;
+}
+
+.car-tariff-table-wrap {
+	margin-top: 0.35rem;
+	overflow-x: auto;
+}
+
+.car-tariff-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.84rem;
+	background: #fff;
+	border: 1px solid rgba(17, 19, 25, 0.12);
+}
+
+.car-tariff-table th,
+.car-tariff-table td {
+	padding: 0.42rem 0.5rem;
+	border: 1px solid rgba(17, 19, 25, 0.1);
+	text-align: left;
+	white-space: nowrap;
+}
+
+.car-tariff-table thead th {
+	background: rgba(31, 111, 139, 0.12);
+	color: var(--teal-deep);
+	font-weight: 700;
+}
+
+.car-tariff-table tbody th {
+	font-weight: 700;
+	color: #223043;
+	background: rgba(31, 111, 139, 0.05);
+}
+
+.car-tariff-table tbody tr.active th,
+.car-tariff-table tbody tr.active td {
+	background: rgba(222, 107, 72, 0.13);
+	font-weight: 700;
+}
+
 .listing-side {
 	display: grid;
 	gap: 0.75rem;
@@ -852,6 +962,71 @@ pre {
 
 .apt-output {
 	grid-column: 1 / -1;
+}
+
+.car-delivery-note {
+	color: #a03f27;
+	font-weight: 700;
+}
+
+.mail-preview-modal-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(9, 18, 31, 0.58);
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	z-index: 10000;
+}
+
+.mail-preview-modal {
+	width: min(760px, 100%);
+	max-height: 85vh;
+	overflow: auto;
+	background: var(--card);
+	border: 1px solid rgba(17, 19, 25, 0.12);
+	box-shadow: 0 20px 60px rgba(7, 17, 33, 0.2);
+}
+
+.mail-preview-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.mail-preview-header h3 {
+	margin: 0;
+	font-size: 1.3rem;
+}
+
+.mail-preview-header p {
+	margin: 0.35rem 0 0;
+	color: var(--ink-soft);
+}
+
+.mail-preview-section {
+	display: grid;
+	gap: 0.35rem;
+	margin-bottom: 1rem;
+}
+
+.mail-preview-section strong {
+	color: var(--teal-deep);
+}
+
+.mail-preview-section p {
+	margin: 0;
+}
+
+.mail-preview-body {
+	background: #fff;
+	border: 1px solid rgba(17, 19, 25, 0.1);
+	padding: 1rem;
+	display: grid;
+	gap: 0.75rem;
+	line-height: 1.55;
 }
 
 .apartment-detail-layout {
@@ -971,6 +1146,10 @@ select:focus {
 		grid-template-columns: 1fr;
 	}
 
+	.car-listing-card {
+		grid-template-columns: 1fr;
+	}
+
 	.apartment-detail-card {
 		grid-template-columns: 1fr;
 	}
@@ -982,6 +1161,15 @@ select:focus {
 	.results-meta {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.rentacar-date-controls {
+		width: 100%;
+	}
+
+	.rentacar-date-controls label,
+	.rentacar-date-controls input {
+		width: 100%;
 	}
 
 	.listing-side {
