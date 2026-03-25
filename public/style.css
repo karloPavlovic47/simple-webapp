@@ -53,6 +53,12 @@ body::after {
 	flex-shrink: 0;
 }
 
+.brand-logo-img {
+	width: 132px;
+	height: auto;
+	object-fit: contain;
+}
+
 .home-stage {
 	margin-top: 0;
 	display: block;
@@ -636,6 +642,28 @@ h3 {
 	margin: 0;
 }
 
+.trust-badge-section {
+	margin-top: 0.95rem;
+}
+
+.trust-badge-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	text-decoration: none;
+	color: var(--ink);
+	font-weight: 600;
+}
+
+.trust-badge-logo {
+	width: 124px;
+	height: auto;
+	object-fit: contain;
+	border: 1px solid rgba(17, 19, 25, 0.16);
+	background: #fff;
+	padding: 0.22rem 0.28rem;
+}
+
 .rentacar-map {
 	height: 320px;
 	border: 1px solid rgba(17, 19, 25, 0.16);
@@ -724,7 +752,7 @@ pre {
 }
 
 .listing-image {
-	min-height: 210px;
+	aspect-ratio: 6 / 5;
 	border-radius: 0;
 	background:
 		linear-gradient(135deg, rgba(31, 111, 139, 0.82), rgba(21, 79, 99, 0.85)),
@@ -755,9 +783,14 @@ pre {
 }
 
 .car-image {
-	background:
-		linear-gradient(135deg, rgba(222, 107, 72, 0.86), rgba(143, 64, 44, 0.9)),
-		repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08) 10px, transparent 10px, transparent 20px);
+	background: transparent !important;
+	padding: 0 !important;
+	align-items: center;
+	justify-content: center;
+}
+
+.car-image span {
+	display: none;
 }
 
 .listing-main h3 {
@@ -800,12 +833,20 @@ pre {
 .car-spec-item {
 	display: inline-flex;
 	align-items: center;
+	gap: 0.35rem;
 	padding: 0.24rem 0.5rem;
 	font-size: 0.84rem;
 	font-weight: 700;
 	border: 1px solid rgba(31, 111, 139, 0.25);
 	background: rgba(31, 111, 139, 0.08);
 	color: var(--teal-deep);
+}
+
+.spec-icon {
+	flex-shrink: 0;
+	width: 16px;
+	height: 16px;
+	color: inherit;
 }
 
 .car-listing-card .listing-price-wrap {
@@ -819,8 +860,32 @@ pre {
 }
 
 .car-tariff-table-wrap {
+	grid-row: 5;
+	grid-column: 1 / -1;
 	margin-top: 0.35rem;
 	overflow-x: auto;
+	overflow-y: hidden;
+	transition: max-height 0.28s ease;
+	cursor: pointer;
+}
+
+.car-tariff-table-wrap:focus-visible {
+	outline: 2px solid rgba(31, 111, 139, 0.45);
+	outline-offset: 2px;
+}
+
+.tariff-expand-hint {
+	padding: 0.5rem 0 0;
+	font-size: 0.8rem;
+	color: var(--teal-deep);
+	font-weight: 600;
+	text-align: center;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+.car-tariff-table-wrap[aria-expanded="true"] .tariff-expand-hint {
+	display: none;
 }
 
 .car-tariff-table {
@@ -855,6 +920,204 @@ pre {
 .car-tariff-table tbody tr.active td {
 	background: rgba(222, 107, 72, 0.13);
 	font-weight: 700;
+}
+
+/* Car Listing Design */
+.car-listing {
+	display: grid;
+	grid-template-columns: 1fr 240px 1fr;
+	gap: 1rem;
+	padding: 1rem;
+	background: #fff;
+	border: 1px solid rgba(17, 19, 25, 0.08);
+	border-radius: 0;
+	position: relative;
+}
+
+.cl--name {
+	grid-column: 1 / 3;
+	display: grid;
+	gap: 0.35rem;
+}
+
+.cl--name h2 {
+	margin: 0;
+	font-size: 1.42rem;
+	line-height: 1.2;
+	color: var(--ink);
+	font-weight: 700;
+}
+
+.cl--name h2 small {
+	display: block;
+	font-size: 0.8rem;
+	font-weight: 400;
+	color: var(--ink-soft);
+}
+
+.cl--name-type {
+	font-size: 0.84rem;
+	color: var(--teal-deep);
+	font-weight: 600;
+}
+
+.cl--car {
+	grid-row: 2;
+	grid-column: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 180px;
+	background: rgba(31, 111, 139, 0.05);
+	border-radius: 0;
+}
+
+.cl--car-img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+.cl--info {
+	grid-row: 2;
+	grid-column: 2 / 4;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto auto auto auto auto;
+	gap: 1rem;
+}
+
+.features {
+	grid-column: 1;
+	grid-row: 1 / 3;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.45rem;
+}
+
+.features li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+	color: var(--ink);
+}
+
+.cl--info-title {
+	grid-column: 1 / -1;
+	grid-row: 3;
+	margin: 0.5rem 0 0.35rem;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: var(--ink);
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.cl--interest-title {
+	grid-column: 2;
+	grid-row: 1;
+	margin: 0.5rem 0 0.35rem;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: var(--ink);
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.cl--tariff-title {
+	grid-column: 1 / -1;
+	grid-row: 5;
+	margin: 0.5rem 0 0.35rem;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: var(--ink);
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.cl--info-serv {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.35rem;
+	font-size: 0.84rem;
+	color: var(--ink-soft);
+	grid-column: 1 / -1;
+	grid-row: 4;
+}
+
+.cl--interest {
+	grid-column: 2;
+	grid-row: 2;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.35rem;
+	font-size: 0.84rem;
+	color: var(--ink-soft);
+}
+
+.cl--info-serv li,
+.cl--interest li {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+}
+
+.cl--action {
+	grid-column: 1 / 4;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-top: 0.5rem;
+	border-top: 1px solid rgba(17, 19, 25, 0.08);
+}
+
+.container-no-wrap {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	flex-wrap: nowrap;
+}
+
+.cl--action-total {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.25rem;
+}
+
+.cl--action .description {
+	font-size: 0.84rem;
+	font-weight: 600;
+	color: var(--ink-soft);
+	white-space: nowrap;
+}
+
+.cl--action .price {
+	font-size: 1.38rem;
+	font-weight: 700;
+	font-family: "IBM Plex Serif", Georgia, serif;
+	color: var(--ink);
+}
+
+.cl--action .price.green {
+	color: #0f6a42;
+}
+
+.cl--footer {
+	grid-column: 1 / 4;
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	padding-top: 0.5rem;
+	border-top: 1px solid rgba(17, 19, 25, 0.08);
 }
 
 .listing-side {
@@ -1155,7 +1418,7 @@ select:focus {
 	}
 
 	.listing-image {
-		min-height: 150px;
+		aspect-ratio: 6 / 5;
 	}
 
 	.results-meta {
@@ -1190,8 +1453,47 @@ select:focus {
 		justify-content: flex-start;
 	}
 
+	.trust-badge-link {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
 	.apt-book-form {
 		grid-template-columns: 1fr;
+	}
+
+	.car-listing {
+		grid-template-columns: 1fr;
+	}
+
+	.cl--name {
+		grid-column: 1;
+	}
+
+	.cl--car {
+		grid-row: auto;
+		grid-column: 1;
+		min-height: 200px;
+	}
+
+	.cl--info {
+		grid-row: auto;
+		grid-column: 1;
+	}
+
+	.cl--action {
+		grid-column: 1;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.cl--footer {
+		grid-column: 1;
+		justify-content: stretch;
+	}
+
+	.cl--footer .btn {
+		width: 100%;
 	}
 }
 

@@ -127,6 +127,7 @@ const I18N = {
     'about.card2.text': 'Preporuke lokacija, aktivnosti i ruta koje odgovaraju profilu gosta.',
     'about.card3.title': 'Podrska 7/7',
     'about.card3.text': 'Operativna podrska za check-in, transfer i rent a car koordinaciju.',
+    'trust.uhpaText': 'Mljet4You d.o.o. je clan UHPA-e (Udruga hrvatskih putnickih agencija).',
     'common.search': 'Pretrazi',
     'common.languageSelector': 'Odabir jezika',
     'common.languageCroatian': 'Hrvatski',
@@ -179,10 +180,10 @@ const I18N = {
     'car.tierShort': '1-3 dana',
     'car.tierMid': '4-6 dana',
     'car.tierLong': '7+ dana',
-    'car.seasonLow': 'Niska (I-IV, XI-XII)',
-    'car.seasonShoulder': 'Pred/Posezona (V, X)',
-    'car.seasonWarm': 'Topla (VI, IX)',
-    'car.seasonHigh': 'Visoka (VII, VIII)',
+    'car.seasonLow': 'Niska (sij-trav, stu-pro)',
+    'car.seasonShoulder': 'Pred/Posezona (svi, lis)',
+    'car.seasonWarm': 'Topla (lip, ruj)',
+    'car.seasonHigh': 'Visoka (srp, kol)',
     'car.seasonRates': 'Cjenik 1-3 / 4-6 / 7+ dana',
     'car.available': 'Dostupno',
     'car.unavailableDates': 'Nedostupno za odabrane datume',
@@ -199,6 +200,18 @@ const I18N = {
     'car.fixDates': 'Ispravite datume i pokusajte ponovno.',
     'car.foundResults': 'Pronadeno {count} kategorija',
     'car.summary': '{available} dostupnih kategorija za odabrani termin.',
+    'car.orSimilar': 'ili slično',
+    'car.services': 'Usluge',
+    'car.freeShuttle': 'Besplatna dostava',
+    'car.unlimitedMileage': 'Neograničena kilometraža',
+    'car.fuelPolicy': 'Gorivo: Full/Full',
+    'car.includes': 'Uključeno',
+    'car.freeCancellation': 'BESPLATNE otkazivanja',
+    'car.theftProtection': 'Zaštita od krađe',
+    'car.freeAmendments': 'BESPLATNE izmjene',
+    'car.fullInsurance': 'Potpuno osiguranje',
+    'car.tariffHint': 'Klikni za puni cjenik',
+    'car.viewDeal': 'Rezerviraj vozilo',
     'apartments.form.name': 'Ime i prezime',
     'apartments.form.email': 'Email',
     'apartments.form.checkin': 'Check-in',
@@ -358,6 +371,7 @@ const I18N = {
     'about.card2.text': 'Recommendations for locations, activities, and routes tailored to guest profiles.',
     'about.card3.title': 'Support 7/7',
     'about.card3.text': 'Operational support for check-in, transfers, and rent-a-car coordination.',
+    'trust.uhpaText': 'Mljet4You d.o.o. is a member of UHPA (Association of Croatian travel agencies).',
     'common.search': 'Search',
     'common.languageSelector': 'Language selector',
     'common.languageCroatian': 'Croatian',
@@ -430,6 +444,18 @@ const I18N = {
     'car.fixDates': 'Please correct the dates and try again.',
     'car.foundResults': 'Found {count} categories',
     'car.summary': '{available} categories available for the selected period.',
+    'car.orSimilar': 'or similar',
+    'car.services': 'Services',
+    'car.freeShuttle': 'Free Shuttle',
+    'car.unlimitedMileage': 'Unlimited Mileage',
+    'car.fuelPolicy': 'Fuel: Full/Full',
+    'car.includes': 'Includes',
+    'car.freeCancellation': 'FREE Cancellation',
+    'car.theftProtection': 'Theft Protection',
+    'car.freeAmendments': 'FREE Amendments',
+    'car.fullInsurance': 'Full Insurance',
+    'car.tariffHint': 'Click to see full pricing',
+    'car.viewDeal': 'View deal',
     'apartments.form.name': 'Full name',
     'apartments.form.email': 'Email',
     'apartments.form.checkin': 'Check-in',
@@ -770,7 +796,7 @@ if (carListingsContainer) {
     {
       id: 'car-1',
       name: 'Mini',
-      imageUrl: 'https://picsum.photos/seed/car-mini/800/560',
+      imageUrl: '/assets/images/rentacar/mini-smart.png',
       carType: 'mini',
       seats: 4,
       doors: 5,
@@ -793,7 +819,7 @@ if (carListingsContainer) {
     {
       id: 'car-2',
       name: 'Small',
-      imageUrl: 'https://picsum.photos/seed/car-small/800/560',
+      imageUrl: '/assets/images/rentacar/small-fiat-500-red.png',
       carType: 'small',
       seats: 5,
       doors: 5,
@@ -816,7 +842,7 @@ if (carListingsContainer) {
     {
       id: 'car-3',
       name: 'Medium',
-      imageUrl: 'https://picsum.photos/seed/car-medium/800/560',
+      imageUrl: '/assets/images/rentacar/medium-ds4.png',
       carType: 'medium',
       seats: 5,
       doors: 5,
@@ -839,7 +865,7 @@ if (carListingsContainer) {
     {
       id: 'car-4',
       name: 'Comfort',
-      imageUrl: 'https://picsum.photos/seed/car-comfort/800/560',
+      imageUrl: '/assets/images/rentacar/comfort-bmw.png',
       carType: 'comfort',
       seats: 5,
       doors: 5,
@@ -862,7 +888,7 @@ if (carListingsContainer) {
     {
       id: 'car-5',
       name: 'Premium',
-      imageUrl: 'https://picsum.photos/seed/car-premium/800/560',
+      imageUrl: '/assets/images/rentacar/premium-vw-arteon.png',
       carType: 'premium',
       seats: 5,
       doors: 5,
@@ -904,10 +930,39 @@ if (carListingsContainer) {
   function getCarSeasonKey(pickup) {
     const date = new Date(pickup);
     const month = Number.isNaN(date.getTime()) ? 6 : date.getMonth() + 1;
+    return getCarSeasonKeyByMonth(month);
+  }
+
+  function getCarSeasonKeyByMonth(month) {
     if (month === 7 || month === 8) return 'high';
     if (month === 6 || month === 9) return 'warm';
     if (month === 5 || month === 10) return 'shoulder';
     return 'low';
+  }
+
+  function getSeasonKeysForRange(pickup, dropoff) {
+    const start = new Date(pickup);
+    const end = new Date(dropoff);
+    const seasonKeys = new Set();
+
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end <= start) {
+      seasonKeys.add(getCarSeasonKey(pickup));
+      return seasonKeys;
+    }
+
+    const cursor = new Date(start);
+    let guard = 0;
+    while (cursor < end && guard < 731) {
+      seasonKeys.add(getCarSeasonKeyByMonth(cursor.getMonth() + 1));
+      cursor.setDate(cursor.getDate() + 1);
+      guard += 1;
+    }
+
+    if (!seasonKeys.size) {
+      seasonKeys.add(getCarSeasonKey(pickup));
+    }
+
+    return seasonKeys;
   }
 
   function getCarTierKey(days) {
@@ -948,6 +1003,70 @@ if (carListingsContainer) {
     });
   }
 
+  function setTariffWrapHeight(wrap) {
+    if (!wrap) return;
+    wrap.style.maxHeight = `${wrap.scrollHeight}px`;
+  }
+
+  function animateTariffWrapHeight(wrap, mutateRows) {
+    if (!wrap || typeof mutateRows !== 'function') return;
+
+    const fromHeight = wrap.getBoundingClientRect().height;
+    wrap.style.maxHeight = `${fromHeight}px`;
+    void wrap.offsetHeight;
+
+    mutateRows();
+    const toHeight = wrap.scrollHeight;
+
+    requestAnimationFrame(() => {
+      wrap.style.maxHeight = `${toHeight}px`;
+    });
+  }
+
+  function syncTariffRows(card, seasonKeysInRange, pricingSeasonKey) {
+    const wrap = card.querySelector('.car-tariff-table-wrap');
+    if (!wrap) return;
+
+    const isExpanded = wrap.dataset.expanded === '1';
+    wrap.dataset.inRange = Array.from(seasonKeysInRange).join(',');
+    const rows = Array.from(card.querySelectorAll('tbody tr[data-season-key]'));
+
+    animateTariffWrapHeight(wrap, () => {
+      rows.forEach((row) => {
+        const isInRange = seasonKeysInRange.has(row.dataset.seasonKey);
+        row.classList.toggle('active', row.dataset.seasonKey === pricingSeasonKey);
+        row.classList.toggle('in-range', isInRange);
+        row.hidden = !isExpanded && !isInRange;
+      });
+    });
+  }
+
+  function toggleTariffTable(card) {
+    const wrap = card.querySelector('.car-tariff-table-wrap');
+    if (!wrap) return;
+
+    const rows = Array.from(card.querySelectorAll('tbody tr[data-season-key]'));
+    const inRange = new Set(String(wrap.dataset.inRange || '').split(',').filter(Boolean));
+    const wasExpanded = wrap.dataset.expanded === '1';
+
+    animateTariffWrapHeight(wrap, () => {
+      if (wasExpanded) {
+        rows.forEach((row) => {
+          row.hidden = !inRange.has(row.dataset.seasonKey);
+        });
+        wrap.dataset.expanded = '0';
+        wrap.setAttribute('aria-expanded', 'false');
+        return;
+      }
+
+      rows.forEach((row) => {
+        row.hidden = false;
+      });
+      wrap.dataset.expanded = '1';
+      wrap.setAttribute('aria-expanded', 'true');
+    });
+  }
+
   function setDefaultCarDates() {
     const now = new Date();
     const tomorrow = new Date(now);
@@ -960,6 +1079,33 @@ if (carListingsContainer) {
     }
     if (carGlobalPickup && !carGlobalPickup.value) carGlobalPickup.value = formatDate(tomorrow);
     if (carGlobalDropoff && !carGlobalDropoff.value) carGlobalDropoff.value = formatDate(dayAfter);
+  }
+
+  function normalizeCarDateRange(pickupInput, dropoffInput, changedField) {
+    if (!pickupInput || !dropoffInput) return false;
+    const pickup = pickupInput.value;
+    const dropoff = dropoffInput.value;
+    if (!pickup || !dropoff) return false;
+
+    const pickupDate = new Date(pickup);
+    const dropoffDate = new Date(dropoff);
+    if (isNaN(pickupDate.getTime()) || isNaN(dropoffDate.getTime())) return false;
+
+    if (pickupDate >= dropoffDate) {
+      if (changedField === 'dropoff') {
+        const maxPickup = new Date(dropoffDate);
+        maxPickup.setDate(maxPickup.getDate() - 1);
+        pickupInput.value = formatDate(maxPickup);
+        return true;
+      }
+
+      const minDropoff = new Date(pickupDate);
+      minDropoff.setDate(minDropoff.getDate() + 1);
+      dropoffInput.value = formatDate(minDropoff);
+      return true;
+    }
+
+    return false;
   }
 
   function collectCarFilters() {
@@ -985,6 +1131,7 @@ if (carListingsContainer) {
         drivers: 1,
       };
     }
+
     const formData = new FormData(carSearchForm);
     return {
       location: String(formData.get('location') || 'At office location'),
@@ -1121,16 +1268,26 @@ if (carListingsContainer) {
     ['pickup', 'dropoff', 'location'].forEach((fieldName) => {
       const input = form.elements[fieldName];
       if (!input) return;
-      input.addEventListener('change', updateBookingSummary);
+
       if (fieldName === 'pickup' || fieldName === 'dropoff') {
         input.addEventListener('change', () => {
+          normalizeCarDateRange(form.elements.pickup, form.elements.dropoff, fieldName);
+
           if (carGlobalPickup && carGlobalDropoff) {
             carGlobalPickup.value = form.elements.pickup.value;
             carGlobalDropoff.value = form.elements.dropoff.value;
+            normalizeCarDateRange(carGlobalPickup, carGlobalDropoff, fieldName);
+            form.elements.pickup.value = carGlobalPickup.value;
+            form.elements.dropoff.value = carGlobalDropoff.value;
           }
+
+          updateBookingSummary();
           renderCars();
         });
+        return;
       }
+
+      input.addEventListener('change', updateBookingSummary);
     });
 
     form.addEventListener('submit', (event) => {
@@ -1176,11 +1333,15 @@ if (carListingsContainer) {
 
   function buildVehicleCard(vehicle, filters, days) {
     const pricing = getCarPricing(vehicle, filters.pickup, days);
+    const seasonKeysInRange = getSeasonKeysForRange(filters.pickup, filters.dropoff);
     const totalPrice = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
     const seasonOrder = ['low', 'shoulder', 'warm', 'high'];
     const seasonRows = seasonOrder.map((seasonKey) => {
       const rates = vehicle.seasonalRates[seasonKey] || vehicle.seasonalRates.warm;
-      const rowClass = seasonKey === pricing.seasonKey ? ' class="active"' : '';
+      const classNames = [];
+      if (seasonKey === pricing.seasonKey) classNames.push('active');
+      if (seasonKeysInRange.has(seasonKey)) classNames.push('in-range');
+      const rowClass = classNames.length ? ` class="${classNames.join(' ')}"` : '';
       return `
         <tr data-season-key="${seasonKey}"${rowClass}>
           <th>${t(getSeasonLabelKey(seasonKey))}</th>
@@ -1192,28 +1353,54 @@ if (carListingsContainer) {
     }).join('');
 
     const card = document.createElement('article');
-    card.className = 'listing-card car-listing-card card-plain fade-up';
+    card.className = 'car-listing fade-up';
     card.dataset.vehicleId = vehicle.id;
     card.innerHTML = `
-      <div class="listing-image car-image" aria-hidden="true">
-        <img class="listing-photo" src="${vehicle.imageUrl || ''}" alt="" loading="lazy" onerror="this.style.display='none'">
-        <span>${vehicle.imageLabel}</span>
+      <div class="cl--name">
+        <h2>${vehicle.name} <small>${t('car.orSimilar')}</small></h2>
+        <span class="cl--name-type">${vehicle.carType}</span>
       </div>
-      <div class="listing-main">
-        <h3>${vehicle.name}</h3>
-        <p class="listing-description">${vehicle.description}</p>
-        <div class="car-specs-grid">
-          <span class="car-spec-item">${vehicle.seats} seats</span>
-          <span class="car-spec-item">${vehicle.doors} doors</span>
-          <span class="car-spec-item">${vehicle.ac ? 'AC' : 'No AC'}</span>
-          <span class="car-spec-item">${vehicle.transmission}</span>
-        </div>
-        <div class="listing-price-wrap">
-          <p class="listing-total js-car-total">${t('car.totalForDates', { total: formatMoney(totalPrice) })}</p>
-          <p class="muted js-car-rate">${days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay')} • ${formatMoney(pricing.pricePerDay)} ${t('car.perDaySuffix')}</p>
-          <p class="muted js-car-season">${t('car.seasonLabel')}: ${t(getSeasonLabelKey(pricing.seasonKey))} • ${t('car.tariffLabel')}: ${t(getTierLabelKey(pricing.tierKey))}</p>
-          <p class="muted js-car-selected-dates">${getSelectedDatePriceLabel(filters)}</p>
-        </div>
+
+      <div class="cl--car">
+        <img class="cl--car-img" src="${vehicle.imageUrl || ''}" alt="${vehicle.name}" loading="lazy" onerror="this.style.display='none'">
+      </div>
+
+      <div class="cl--info">
+        <ul class="features">
+          <li>
+            <svg class="spec-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            ${vehicle.seats} seats
+          </li>
+          <li>
+            <svg class="spec-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm11 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM5 10l1.5-4.5h11L19 10H5z"/></svg>
+            ${vehicle.doors} doors
+          </li>
+          <li>
+            <svg class="spec-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            ${vehicle.ac ? 'AC' : 'No AC'}
+          </li>
+          <li>
+            <svg class="spec-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm11 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM5 10l1.5-4.5h11L19 10H5z"/></svg>
+            ${vehicle.transmission}
+          </li>
+        </ul>
+
+        <h4 class="cl--info-title">${t('car.services')}</h4>
+        <ul class="cl--info-serv">
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm11 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM5 10l1.5-4.5h11L19 10H5z"/></svg>${t('car.freeShuttle')}</li>
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${t('car.unlimitedMileage')}</li>
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${t('car.fuelPolicy')}</li>
+        </ul>
+
+        <h4 class="cl--interest-title">${t('car.includes')}</h4>
+        <ul class="cl--interest">
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${t('car.freeCancellation')}</li>
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${t('car.theftProtection')}</li>
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${t('car.freeAmendments')}</li>
+          <li><svg class="spec-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${t('car.fullInsurance')}</li>
+        </ul>
+
+        <h4 class="cl--tariff-title">Tariff</h4>
         <div class="car-tariff-table-wrap">
           <table class="car-tariff-table" aria-label="Tarife najma">
             <thead>
@@ -1228,10 +1415,23 @@ if (carListingsContainer) {
               ${seasonRows}
             </tbody>
           </table>
+          <div class="tariff-expand-hint">${t('car.tariffHint')}</div>
         </div>
-        <button class="btn open-booking-btn">
-          ${t('car.book')}
-        </button>
+      </div>
+
+      <div class="cl--action">
+        <div class="container-no-wrap">
+          <span class="description">${t('car.pricePerDay')}:</span>
+          <span class="price green">${formatMoney(pricing.pricePerDay)}</span>
+        </div>
+        <div class="cl--action-total">
+          <span class="description muted js-car-selected-dates">${days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay')}</span>
+          <span class="price green js-car-total-price">${formatMoney(totalPrice)}</span>
+        </div>
+      </div>
+
+      <div class="cl--footer">
+        <button class="btn open-booking-btn">${t('car.viewDeal')}</button>
       </div>
     `;
 
@@ -1239,6 +1439,23 @@ if (carListingsContainer) {
     const bookingBox = createCarBookingForm(vehicle, filters);
     bookingBox.hidden = true;
     card.appendChild(bookingBox);
+
+    const tariffWrap = card.querySelector('.car-tariff-table-wrap');
+    if (tariffWrap) {
+      tariffWrap.dataset.expanded = '0';
+      tariffWrap.setAttribute('role', 'button');
+      tariffWrap.setAttribute('tabindex', '0');
+      tariffWrap.setAttribute('aria-expanded', 'false');
+      tariffWrap.addEventListener('click', () => toggleTariffTable(card));
+      tariffWrap.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleTariffTable(card);
+      });
+      syncTariffRows(card, seasonKeysInRange, pricing.seasonKey);
+      setTariffWrapHeight(tariffWrap);
+    }
+
     toggleButton.addEventListener('click', () => {
       bookingBox.hidden = !bookingBox.hidden;
       toggleButton.textContent = bookingBox.hidden ? t('car.book') : t('car.hideForm');
@@ -1249,6 +1466,7 @@ if (carListingsContainer) {
 
   function updateCarCardDynamicContent(card, vehicle, filters, days) {
     const pricing = getCarPricing(vehicle, filters.pickup, days);
+    const seasonKeysInRange = getSeasonKeysForRange(filters.pickup, filters.dropoff);
     const totalPrice = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
 
     const totalNode = card.querySelector('.js-car-total');
@@ -1265,11 +1483,12 @@ if (carListingsContainer) {
     }
 
     const selectedDatesNode = card.querySelector('.js-car-selected-dates');
-    if (selectedDatesNode) selectedDatesNode.textContent = getSelectedDatePriceLabel(filters);
+    if (selectedDatesNode) selectedDatesNode.textContent = days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay');
 
-    card.querySelectorAll('tbody tr[data-season-key]').forEach((row) => {
-      row.classList.toggle('active', row.dataset.seasonKey === pricing.seasonKey);
-    });
+    const totalPriceNode = card.querySelector('.js-car-total-price');
+    if (totalPriceNode) totalPriceNode.textContent = formatMoney(totalPrice);
+
+    syncTariffRows(card, seasonKeysInRange, pricing.seasonKey);
 
     const bookingBox = card.querySelector('.listing-booking-box');
     if (bookingBox && typeof bookingBox.syncDatesFromFilters === 'function') {
@@ -1345,6 +1564,11 @@ if (carListingsContainer) {
     setDefaultCarDates();
     [carGlobalPickup, carGlobalDropoff].forEach((input) => {
       input.addEventListener('change', () => {
+        normalizeCarDateRange(
+          carGlobalPickup,
+          carGlobalDropoff,
+          input === carGlobalPickup ? 'pickup' : 'dropoff'
+        );
         renderCars();
       });
     });
