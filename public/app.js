@@ -1361,7 +1361,7 @@ if (carListingsContainer) {
       input.addEventListener('change', updateBookingSummary);
     });
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const out = form.querySelector('.apt-output');
       const pickup = form.elements.pickup.value;
@@ -1370,8 +1370,7 @@ if (carListingsContainer) {
       const days = diffDays(pickup, dropoff);
       const pricing = getCarPricing(vehicle, pickup, days);
       const total = days > 0 ? pricing.pricePerDay * days : pricing.pricePerDay;
-
-      showCarMailPreview({
+      const previewPayload = {
         name: form.elements.name.value,
         email: form.elements.email.value,
         vehicle: vehicle.name,
@@ -1382,8 +1381,45 @@ if (carListingsContainer) {
         locationLabel: location === 'Delivery' ? t('rentacar.pickupDelivery') : t('rentacar.pickupAtOffice'),
         total: formatMoney(total),
         perDay: `${formatMoney(pricing.pricePerDay)} ${t('car.perDaySuffix')}`,
-      });
-      out.textContent = t('car.previewOnly');
+      };
+
+      showCarMailPreview(previewPayload);
+      out.textContent = t('common.loadingResults');
+
+      try {
+        const response = await fetch('/api/rentacar/book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: previewPayload.name,
+            email: previewPayload.email,
+            pickup,
+            dropoff,
+            carType: vehicle.carType,
+            location,
+            vehicleName: previewPayload.vehicle,
+            pickupDisplay: previewPayload.pickup,
+            dropoffDisplay: previewPayload.dropoff,
+            days: previewPayload.days,
+            locationLabel: previewPayload.locationLabel,
+            totalDisplay: previewPayload.total,
+            perDayDisplay: formatMoney(pricing.pricePerDay),
+          }),
+        });
+
+        const payload = await response.json();
+        if (!response.ok || !payload.success) {
+          throw new Error(payload.message || 'Unable to process inquiry');
+        }
+
+        if (payload.mailSent) {
+          out.textContent = payload.message || 'Inquiry received and confirmation email sent';
+        } else {
+          out.textContent = payload.mailError || t('car.previewOnly');
+        }
+      } catch (error) {
+        out.textContent = `${t('common.errorPrefix')}: ${error.message}`;
+      }
     });
 
     updateBookingSummary();
