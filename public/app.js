@@ -61,9 +61,13 @@ const I18N = {
     'rentacar.deliveryNotice': 'U slucaju odabira delivery opcije, dodatne cijene dostave mogu biti ukljucene.',
     'rentacar.pickupDate': 'Datum preuzimanja',
     'rentacar.dropoffDate': 'Datum povrata',
+    'rentacar.openCalendar': 'Otvori kalendar',
+    'rentacar.rangePlaceholder': 'Odaberi raspon datuma',
     'rentacar.drivers': 'Vozaca',
     'rentacar.available': 'Dostupne kategorije',
     'rentacar.dateSelection': 'Selekcija datuma',
+    'rentacar.basePriceCaption': 'Osnovna cijena za odabrane datume',
+    'rentacar.basePriceNotice': 'Prikazane su osnovne cijene za odabrane datume. Mogući popusti nisu uključeni u osnovnu cijenu.',
     'rentacar.zoneTitle': 'Zona preuzimanja i dostave',
     'rentacar.zoneText': 'Bazna lokacija je prikazana na mapi, s oznacenim radijusom usluge od 5 km.',
     'rentacar.deliveryOutsideNotice': 'Dostava izvan oznacenog radijusa od 5 km dodatno se naplacuje.',
@@ -305,9 +309,13 @@ const I18N = {
     'rentacar.deliveryNotice': 'If delivery is selected, additional delivery charges may apply.',
     'rentacar.pickupDate': 'Pickup date',
     'rentacar.dropoffDate': 'Drop-off date',
+    'rentacar.openCalendar': 'Open calendar',
+    'rentacar.rangePlaceholder': 'Select date range',
     'rentacar.drivers': 'Drivers',
     'rentacar.available': 'Available categories',
     'rentacar.dateSelection': 'Date selection',
+    'rentacar.basePriceCaption': 'Base price for selected dates',
+    'rentacar.basePriceNotice': 'Displayed prices are base prices for selected dates. Possible discounts are not included in the base price.',
     'rentacar.zoneTitle': 'Pickup and delivery zone',
     'rentacar.zoneText': 'The base location is shown on the map with a marked 5 km service radius.',
     'rentacar.deliveryOutsideNotice': 'Delivery outside the marked 5 km radius is charged additionally.',
@@ -786,11 +794,14 @@ if (carListingsContainer) {
   const carResultsTitle = document.getElementById('carResultsTitle');
   const carResultsSummary = document.getElementById('carResultsSummary');
   const carDeliveryNotice = document.getElementById('carDeliveryNotice');
+  const carGlobalRange = document.getElementById('carGlobalRange');
+  const carRangeButton = document.getElementById('carRangeButton');
   const carGlobalPickup = document.getElementById('carGlobalPickup');
   const carGlobalDropoff = document.getElementById('carGlobalDropoff');
   const rentacarMap = document.getElementById('rentacarMap');
   const carCardsById = new Map();
   let carCardsRendered = false;
+  let carRangePicker = null;
 
   const CAR_CATALOG = [
     {
@@ -1081,6 +1092,65 @@ if (carListingsContainer) {
     if (carGlobalDropoff && !carGlobalDropoff.value) carGlobalDropoff.value = formatDate(dayAfter);
   }
 
+  function syncCarRangeInputFromHiddenDates() {
+    if (!carGlobalRange) return;
+    const pickup = carGlobalPickup?.value;
+    const dropoff = carGlobalDropoff?.value;
+
+    if (!pickup || !dropoff) {
+      carGlobalRange.value = '';
+      return;
+    }
+
+    carGlobalRange.value = `${formatDisplayDate(pickup)} - ${formatDisplayDate(dropoff)}`;
+
+    if (carRangePicker) {
+      carRangePicker.setDate([pickup, dropoff], false, 'Y-m-d');
+    }
+  }
+
+  function initCarRangePicker() {
+    if (!carGlobalRange || !carGlobalPickup || !carGlobalDropoff) return;
+    if (typeof window.flatpickr !== 'function') {
+      syncCarRangeInputFromHiddenDates();
+      return;
+    }
+
+    carRangePicker = window.flatpickr(carGlobalRange, {
+      mode: 'range',
+      dateFormat: 'Y-m-d',
+      minDate: 'today',
+      clickOpens: false,
+      allowInput: false,
+      defaultDate: [carGlobalPickup.value, carGlobalDropoff.value],
+      onClose: (selectedDates) => {
+        if (!Array.isArray(selectedDates) || selectedDates.length < 2) return;
+
+        const pickup = formatDate(selectedDates[0]);
+        const dropoff = formatDate(selectedDates[1]);
+        carGlobalPickup.value = pickup;
+        carGlobalDropoff.value = dropoff;
+        syncCarRangeInputFromHiddenDates();
+        renderCars();
+
+        const dateSelectionSection = carResultsTitle?.closest('.results-meta') || carResultsTitle;
+        if (dateSelectionSection) {
+          requestAnimationFrame(() => {
+            dateSelectionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+      },
+    });
+
+    syncCarRangeInputFromHiddenDates();
+
+    if (carRangeButton) {
+      carRangeButton.addEventListener('click', () => {
+        carRangePicker.open();
+      });
+    }
+  }
+
   function normalizeCarDateRange(pickupInput, dropoffInput, changedField) {
     if (!pickupInput || !dropoffInput) return false;
     const pickup = pickupInput.value;
@@ -1279,6 +1349,7 @@ if (carListingsContainer) {
             normalizeCarDateRange(carGlobalPickup, carGlobalDropoff, fieldName);
             form.elements.pickup.value = carGlobalPickup.value;
             form.elements.dropoff.value = carGlobalDropoff.value;
+            syncCarRangeInputFromHiddenDates();
           }
 
           updateBookingSummary();
@@ -1425,7 +1496,7 @@ if (carListingsContainer) {
           <span class="price green">${formatMoney(pricing.pricePerDay)}</span>
         </div>
         <div class="cl--action-total">
-          <span class="description muted js-car-selected-dates">${days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay')}</span>
+          <span class="description muted js-car-selected-dates">${t('rentacar.basePriceCaption')}</span>
           <span class="price green js-car-total-price">${formatMoney(totalPrice)}</span>
         </div>
       </div>
@@ -1483,7 +1554,7 @@ if (carListingsContainer) {
     }
 
     const selectedDatesNode = card.querySelector('.js-car-selected-dates');
-    if (selectedDatesNode) selectedDatesNode.textContent = days > 0 ? t('car.days', { count: days }) : t('car.pricePerDay');
+    if (selectedDatesNode) selectedDatesNode.textContent = t('rentacar.basePriceCaption');
 
     const totalPriceNode = card.querySelector('.js-car-total-price');
     if (totalPriceNode) totalPriceNode.textContent = formatMoney(totalPrice);
@@ -1541,7 +1612,7 @@ if (carListingsContainer) {
     const availableCount = carCardsById.size;
 
     if (carResultsTitle) carResultsTitle.textContent = t('rentacar.dateSelection');
-    carResultsSummary.textContent = '';
+    carResultsSummary.textContent = t('rentacar.basePriceNotice');
   }
 
   if (carSearchForm) {
@@ -1562,16 +1633,8 @@ if (carListingsContainer) {
 
   if (carGlobalPickup && carGlobalDropoff) {
     setDefaultCarDates();
-    [carGlobalPickup, carGlobalDropoff].forEach((input) => {
-      input.addEventListener('change', () => {
-        normalizeCarDateRange(
-          carGlobalPickup,
-          carGlobalDropoff,
-          input === carGlobalPickup ? 'pickup' : 'dropoff'
-        );
-        renderCars();
-      });
-    });
+    initCarRangePicker();
+    syncCarRangeInputFromHiddenDates();
   }
 
   (async () => {

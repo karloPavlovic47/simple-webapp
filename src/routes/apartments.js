@@ -1,6 +1,7 @@
 const express = require('express');
 const APARTMENTS = require('../data/apartments');
 const { readStorage, writeStorage } = require('../services/storage');
+const { canSendMail, sendMail } = require('../services/mailer');
 
 const router = express.Router();
 
@@ -112,7 +113,7 @@ router.get('/apartments/:id', (req, res) => {
   });
 });
 
-router.post('/apartments/:id/book', (req, res) => {
+router.post('/apartments/:id/book', async (req, res) => {
   const id = req.params.id;
   const { name, email, checkin, checkout, guests, evisitor } = req.body || {};
   if (!name || !email || !checkin || !checkout) {
@@ -144,10 +145,38 @@ router.post('/apartments/:id/book', (req, res) => {
   };
   storage.apartments[id].push(booking);
   writeStorage(storage);
-  return res.json({ success: true, booking });
+
+  let mailSent = false;
+  let mailError = null;
+
+  if (canSendMail()) {
+    try {
+      await sendMail({
+        subject: `Mljet4You apartment booking ${booking.id}`,
+        replyTo: email,
+        text: [
+          'New apartment booking received.',
+          `Booking ID: ${booking.id}`,
+          `Apartment ID: ${id}`,
+          `Guest: ${name}`,
+          `Email: ${email}`,
+          `Dates: ${checkin} -> ${checkout}`,
+          `Guests: ${booking.guests}`,
+          `eVisitor: ${booking.evisitor ? 'Yes' : 'No'}`,
+        ].join('\n'),
+      });
+      mailSent = true;
+    } catch (error) {
+      mailError = error.message;
+    }
+  } else {
+    mailError = 'Gmail SMTP is not configured. Set GMAIL_USER and GMAIL_APP_PASSWORD.';
+  }
+
+  return res.json({ success: true, booking, mailSent, mailError });
 });
 
-router.post('/reserve-apartment', (req, res) => {
+router.post('/reserve-apartment', async (req, res) => {
   const { name, email, checkin, checkout, guests, apartment, evisitor } = req.body || {};
   if (!name || !email || !checkin || !checkout) {
     return res.status(400).json({ success: false, message: 'Missing required fields' });
@@ -186,7 +215,36 @@ router.post('/reserve-apartment', (req, res) => {
   storage.apartments[picked.id].push(confirmation);
   writeStorage(storage);
 
-  return res.json({ success: true, confirmation });
+  let mailSent = false;
+  let mailError = null;
+
+  if (canSendMail()) {
+    try {
+      await sendMail({
+        subject: `Mljet4You reservation ${confirmation.id}`,
+        replyTo: email,
+        text: [
+          'New reserve-apartment request received.',
+          `Confirmation ID: ${confirmation.id}`,
+          `Apartment ID: ${confirmation.apartmentId}`,
+          `Apartment: ${confirmation.apartmentName}`,
+          `Type: ${confirmation.apartmentType}`,
+          `Guest: ${name}`,
+          `Email: ${email}`,
+          `Dates: ${checkin} -> ${checkout}`,
+          `Guests: ${confirmation.guests}`,
+          `eVisitor: ${confirmation.evisitorRegistered ? 'Yes' : 'No'}`,
+        ].join('\n'),
+      });
+      mailSent = true;
+    } catch (error) {
+      mailError = error.message;
+    }
+  } else {
+    mailError = 'Gmail SMTP is not configured. Set GMAIL_USER and GMAIL_APP_PASSWORD.';
+  }
+
+  return res.json({ success: true, confirmation, mailSent, mailError });
 });
 
 module.exports = router;

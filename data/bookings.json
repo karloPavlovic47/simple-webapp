@@ -11,6 +11,20 @@
         "evisitor": false,
         "emailConfirmation": true,
         "createdAt": "2026-03-20T03:59:08.863Z"
+      },
+      {
+        "id": "APT-1774876066623",
+        "apartmentId": "apt-1",
+        "apartmentName": "Adriatic View Studio",
+        "apartmentType": "studio",
+        "name": "Test User",
+        "email": "test@example.com",
+        "checkin": "2026-04-10",
+        "checkout": "2026-04-12",
+        "guests": 2,
+        "evisitorRegistered": true,
+        "confirmationEmailSent": true,
+        "createdAt": "2026-03-30T13:07:46.623Z"
       }
     ],
     "apt-5": [
@@ -40,5 +54,17 @@
       "createdAt": "2026-03-22T18:57:21.803Z"
     }
   ],
-  "guestCheckins": []
+  "guestCheckins": [
+    {
+      "id": "CHK-1774876303025",
+      "bookingId": "APT-TEST",
+      "guestName": "Test Gost",
+      "email": "test@example.com",
+      "passportId": "HR123456",
+      "arrivalDate": "2026-04-10",
+      "evisitorRegistered": true,
+      "confirmationEmailSent": true,
+      "createdAt": "2026-03-30T13:11:43.025Z"
+    }
+  ]
 }

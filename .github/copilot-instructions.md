@@ -15,7 +15,8 @@ Current UI/flow notes:
 - Main navigation is Croatian-first: `Naslovnica`, `Smjestaj`, `Rent a car`, `Aktivnosti`, `FAQ i info guide`, `Kako do nas`, `O nama`.
 - Smjestaj page now redirects users to the guest portal at `https://mljet4you.hr/`.
 - Rent a car now uses category-based results (Mini, Small, Medium, Comfort, Premium) with seasonal pricing tiers (1-3, 4-7, 8+ days).
-- Guest flow includes online check-in, eVisitor flag, and simulated automatic email confirmation in API responses.
+- Rent a car date selection now uses one button-triggered range calendar (2 clicks for pickup/drop-off), while hidden pickup/drop-off fields stay synced for price updates and booking-mail forms.
+- Guest flow includes online check-in, eVisitor flag, and optional Gmail SMTP notifications for reservation/check-in submissions (via `GMAIL_USER`, `GMAIL_APP_PASSWORD`, `MAIL_TO`).
 
 To start the server: Run `node server.js` in the background to launch at http://localhost:3000.
 
